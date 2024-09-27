@@ -1,0 +1,480 @@
+[{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fb0"
+  },
+  "name": "Fundamentals of Building Construction",
+  "authors": "Edward Allen, Joseph Iano",
+  "year": "2019"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fb1"
+  },
+  "name": "Professional Practice for Interior Designers",
+  "authors": "Christine M. Piotrowski",
+  "year": "2020"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fb2"
+  },
+  "name": "Mechanical and Electrical Equipment for Buildings",
+  "authors": "Walter T. Grondzik, Alison G. Kwok",
+  "year": "2019"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fb3"
+  },
+  "name": "The Architect's Handbook of Professional Practice",
+  "authors": "",
+  "year": "2013"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fb4"
+  },
+  "name": "A Global History of Architecture",
+  "authors": "Francis D. K. Ching, Mark M. Jarzombek, Vikramaditya Prakash",
+  "year": "2017"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fb5"
+  },
+  "name": "Simplified Engineering for Architects and Builders",
+  "authors": "James Ambrose, Patrick Tripeny",
+  "year": "2016"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fb6"
+  },
+  "name": "The City Reader",
+  "authors": "Richard T. LeGates, Richard T. Legates, Frederic Stout, Roger W. Caves",
+  "year": "2020"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fb7"
+  },
+  "name": "Building Construction Illustrated",
+  "authors": "Francis D. K. Ching",
+  "year": "2020"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fb8"
+  },
+  "name": "Environmental Land Use Planning and Management",
+  "authors": "John Randolph",
+  "year": "2011"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fb9"
+  },
+  "name": "Heating, Cooling, Lighting",
+  "authors": "Norbert M. Lechner",
+  "year": "2014"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fba"
+  },
+  "name": "Designing Interiors",
+  "authors": "Rosemary Kilmer, W. Otie Kilmer",
+  "year": "2014"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fbb"
+  },
+  "name": "Materials for Interior Environments",
+  "authors": "Corky Binggeli",
+  "year": "2013"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fbc"
+  },
+  "name": "Design Drawing",
+  "authors": "Francis D. K. Ching, Steven P. Juroszek",
+  "year": "2019"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fbd"
+  },
+  "name": "Designing Commercial Interiors",
+  "authors": "Christine M. Piotrowski",
+  "year": "2016"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fbe"
+  },
+  "name": "Site Engineering for Landscape Architects",
+  "authors": "Steven Strom, Kurt Nathan, Jake Woland",
+  "year": "2013"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fbf"
+  },
+  "name": "BIM Handbook",
+  "authors": "Rafael Sacks, Charles Eastman, Ghang Lee, Paul Teicholz",
+  "year": "2018"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fc0"
+  },
+  "name": "Planning in the USA",
+  "authors": "J. Barry Cullingworth, Roger Caves",
+  "year": "2013"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fc1"
+  },
+  "name": "Heating, Cooling, Lighting",
+  "authors": "Norbert M. Lechner, Patricia Andrasik",
+  "year": "2021"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fc2"
+  },
+  "name": "Site Analysis",
+  "authors": "James A. LaGro",
+  "year": "2013"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fc3"
+  },
+  "name": "Landscape Architectural Graphic Standards",
+  "authors": "Leonard J. Hopper",
+  "year": "2012"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fc4"
+  },
+  "name": "The Sustainable Sites Handbook",
+  "authors": "Meg Calkins",
+  "year": "2011"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fc5"
+  },
+  "name": "Adaptive Reuse of the Built Heritage",
+  "authors": "Bie Plevoets, Koenraad Van Cleempoel",
+  "year": "2019"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fc6"
+  },
+  "name": "Missing Middle Housing",
+  "authors": "Daniel G. Parolek",
+  "year": "2020"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fc7"
+  },
+  "name": "Making Healthy Places, Second Edition",
+  "authors": "Nisha Botchwey, Andrew L. Dannenberg, Howard Frumkin",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fc8"
+  },
+  "name": "The Eyes of the Skin",
+  "authors": "Juhani Pallasmaa",
+  "year": "2012"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fc9"
+  },
+  "name": "Typographic Design",
+  "authors": "Rob Carter, Sandra Maxa, Mark Sanders, Philip B. Meggs, Ben Day",
+  "year": "2017"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fca"
+  },
+  "name": "The Architecture Student's Handbook of Professional Practice",
+  "authors": "",
+  "year": "2017"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fcb"
+  },
+  "name": "Building Systems for Interior Designers",
+  "authors": "Corky Binggeli",
+  "year": "2015"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fcc"
+  },
+  "name": "Space Planning Basics",
+  "authors": "Mark Karlen, Rob Fleming",
+  "year": "2016"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fcd"
+  },
+  "name": "Sun, Wind, and Light: Architectural Design Strategies",
+  "authors": "Mark DeKay, G. Z. Brown",
+  "year": "2013"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fce"
+  },
+  "name": "Interior Graphic Standards",
+  "authors": "Corky Binggeli",
+  "year": "2011"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fcf"
+  },
+  "name": "American Architecture",
+  "authors": "Leland M. Roth",
+  "year": "2018"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fd0"
+  },
+  "name": "The Community Resilience Reader",
+  "authors": "Daniel Lerch",
+  "year": "2017"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fd1"
+  },
+  "name": "Hotel Design, Planning and Development",
+  "authors": "Richard Penner, Lawrence Adams, Stephani Robson",
+  "year": "2013"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fd2"
+  },
+  "name": "The City of Tomorrow and Its Planning",
+  "authors": "Le Corbusier",
+  "year": "2013"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fd3"
+  },
+  "name": "Problem Seeking",
+  "authors": "William M. Pena, Steven A. Parshall",
+  "year": "2012"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fd4"
+  },
+  "name": "Residential Interior Design",
+  "authors": "Maureen Mitton, Courtney Nystuen",
+  "year": "2021"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fd5"
+  },
+  "name": "Becoming an Architect",
+  "authors": "Lee W. Waldrep",
+  "year": "2014"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fd6"
+  },
+  "name": "Therapeutic Landscapes",
+  "authors": "Clare Cooper Marcus, Naomi A Sachs",
+  "year": "2013"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fd7"
+  },
+  "name": "Business Principles for Landscape Contracting",
+  "authors": "Steven Cohan",
+  "year": "2018"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fd8"
+  },
+  "name": "The Interior Design Business Handbook",
+  "authors": "Mary V. Knackstedt",
+  "year": "2012"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fd9"
+  },
+  "name": "Topographical Stories",
+  "authors": "David Leatherbarrow",
+  "year": "2015"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fda"
+  },
+  "name": "Prefab Architecture",
+  "authors": "Ryan E. Smith",
+  "year": "2011"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fdb"
+  },
+  "name": "Designing with Light",
+  "authors": "Jason Livingston",
+  "year": "2021"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fdc"
+  },
+  "name": "Passive House Details",
+  "authors": "Donald Corner, Jan Fillinger, Alison Kwok",
+  "year": "2017"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fdd"
+  },
+  "name": "Memorials as Spaces of Engagement",
+  "authors": "Quentin Stevens, Karen A. Franck",
+  "year": "2015"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fde"
+  },
+  "name": "The Sustainable Urban Development Reader",
+  "authors": "Stephen M. Wheeler",
+  "year": "2022"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fdf"
+  },
+  "name": "Guide to JCT Design and Build Contract 2016",
+  "authors": "Sarah Lupton",
+  "year": "2019"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fe0"
+  },
+  "name": "NEC4: 100 Questions and Answers",
+  "authors": "Kelvin Hughes",
+  "year": "2019"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fe1"
+  },
+  "name": "The Architect in Practice",
+  "authors": "David Chappell, Michael H. Dunn",
+  "year": "2015"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fe2"
+  },
+  "name": "Make Space",
+  "authors": "Scott Doorley, Scott Witthoft",
+  "year": "2011"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fe3"
+  },
+  "name": "Architectural Graphics",
+  "authors": "Francis D. K. Ching",
+  "year": "2015"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fe4"
+  },
+  "name": "Manual of Section",
+  "authors": "Paul Lewis, Marc Tsurumaki, David J. Lewis",
+  "year": "2016"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fe5"
+  },
+  "name": "Universal Design",
+  "authors": "Edward Steinfeld, Jordana Maisel",
+  "year": "2012"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fe6"
+  },
+  "name": "Public Places Urban Spaces",
+  "authors": "Matthew Carmona",
+  "year": "2021"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fe7"
+  },
+  "name": "Introduction to Architecture",
+  "authors": "Francis D. K. Ching, James F. Eckler",
+  "year": "2012"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fe8"
+  },
+  "name": "Life Between Buildings",
+  "authors": "Jan Gehl",
+  "year": "2012"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fe9"
+  },
+  "name": "Housing Design for an Increasingly Older Population",
+  "authors": "Victor Regnier",
+  "year": "2018"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7fea"
+  },
+  "name": "Building Structures Illustrated",
+  "authors": "Francis D. K. Ching, Barry S. Onouye, Douglas Zuberbuhler",
+  "year": "2014"
+},
+{
+  "_id": {
+    "$oid": "66f663d9fa81265b1f7c7feb"
+  },
+  "name": "Lighting Design Basics",
+  "authors": "Mark Karlen, Christina Spangler, James R. Benya",
+  "year": "2017"
+}]
