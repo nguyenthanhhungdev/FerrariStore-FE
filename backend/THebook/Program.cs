@@ -5,8 +5,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add MongoDB
 
+
+// Lấy thông tin cấu hình từ tệp appsettings.json và đăng ký các dịch vụ cần thiết cho Dependency Injection.
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddSingleton<MongoDBService>();
+builder.Services.AddSingleton<BookService>();
 
 // Add services to the container.
 

@@ -16,6 +16,8 @@
 2. vao thu muc TH-ebook project
 3. mo terminal trong project: `yarn`
 
+có thể dùng npm để cài yarn: npm install --global yarn
+
 ## cong nghe
 
 ### su dung

@@ -6,25 +6,24 @@ using MongoDB.Driver;
 using THebook.Models;
 using THebook.Repository;
 
+/**
+ *
+ *
+ * Tạo ra 2 biến:
+ * Client dùng để kết nối đến MongoDB
+ * Database dùng để thao tác với database bằng cách sử dụng Client
+ * 
+ */
+
+
 public class MongoDBService
 {
-    private readonly IMongoCollection<User> _userCollection;
+    private MongoClient Client { get; }
+    public IMongoDatabase Database { get; }
 
-    public MongoDBService(IOptions<MongoDBSettings> mongoDBSettings)
+    public MongoDBService(IOptions<MongoDBSettings> mongoDbSettings)
     {
-        MongoClient client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
-        IMongoDatabase database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
-        _userCollection = database.GetCollection<User>(mongoDBSettings.Value.CollectionName);
+        Client = new MongoClient(mongoDbSettings.Value.ConnectionURI);
+        Database = Client.GetDatabase(mongoDbSettings.Value.DatabaseName);
     }
-
-    public async Task<List<User>> GetAsync()
-    {
-        return await _userCollection.Find(new BsonDocument()).ToListAsync();
-    }
-
-    public async Task CreateAsync(User playlist) { }
-
-    public async Task AddToPlaylistAsync(string id, string movieId) { }
-
-    public async Task DeleteAsync(string id) { }
 }
