@@ -19,10 +19,10 @@ namespace THebook.Services;
  */
 
 
-public class BookService(IOptions<MongoDBSettings> mongoDbSettings, MongoDBService mongoDbService)
+public class BookService(IMongoDBSettings mongoDbSettings, MongoDBService mongoDbService)
 {
 
-    private readonly IMongoCollection<Book> _bookCollection = mongoDbService.Database.GetCollection<Book>(mongoDbSettings.Value.BookCollectionName);
+    private readonly IMongoCollection<Book> _bookCollection = mongoDbService.Database.GetCollection<Book>(mongoDbSettings.CollectionNames["Book"]);
     public async Task<List<Book>> GetAsync()
     {
         return await _bookCollection.Find(new BsonDocument()).ToListAsync();
