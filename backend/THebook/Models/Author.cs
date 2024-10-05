@@ -17,5 +17,9 @@ namespace THebook.Models
         [BsonElement("biography")]
         [JsonPropertyName("biography")]
         public string? Biography { get; set; } = null!;
+        
+        [BsonElement("books")]
+        [JsonPropertyName("books")]
+        public string[]? Books { get; set; } = null!;
     }
 }
