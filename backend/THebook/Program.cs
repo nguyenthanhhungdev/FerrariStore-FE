@@ -1,4 +1,6 @@
 using Microsoft.Extensions.Options;
+using THebook.ExceptionError;
+using THebook.Middleware;
 using THebook.Repository;
 using THebook.Services;
 
@@ -22,7 +24,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 var app = builder.Build();
+app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
