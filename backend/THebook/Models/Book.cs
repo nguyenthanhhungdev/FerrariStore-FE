@@ -41,5 +41,9 @@ namespace THebook.Models
         [BsonElement("updated_at")]
         [JsonPropertyName("updated_at")]
         public DateTime UpdatedAt { get; set; }
+        
+        [BsonElement("authors")]
+        [JsonPropertyName("authors")]
+        public string[]? Authors { get; set; } = null!;
     }
 }
