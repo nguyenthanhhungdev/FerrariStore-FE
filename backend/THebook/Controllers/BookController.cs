@@ -3,72 +3,87 @@ using MongoDB.Driver;
 using THebook.ExceptionError;
 using THebook.Models;
 using THebook.Services;
+using Microsoft.Extensions.Logging;
 
-namespace THebook.Controllers;
-
-[Route("api/[controller]")]
-[ApiController]
-public class BookController(BookService bookService) : Controller
+namespace THebook.Controllers
 {
-    [HttpGet]
-    public async Task<ActionResult<List<Book>>> Get()
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BookController(BookService bookService, ILogger<BookController> logger) : Controller
     {
-        Console.WriteLine("P::Get all books");
-        return await bookService.GetAsync();
-    }
-
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Book>> Get(string id)
-    {
-        Console.WriteLine("P::Get book");
-        var book = await bookService.GetAsync(id);
-        if (book == null)
+        [HttpGet]
+        public async Task<ActionResult<List<Book>>> Get()
         {
-            throw new BookNotFoundException(id);
+            logger.LogInformation("Getting all books");
+            return await bookService.GetAsync();
         }
-        return book;
-    }
 
-    [HttpPost]
-    public async Task<ActionResult<Book>> Create(Book book)
-    {
-        Console.WriteLine("P::Create book");
-        try
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Book>> Get(string id)
         {
-            await bookService.CreateAsync(book);
-        } catch (MongoWriteException e)
-        {
-            throw new BookAlreadyExitsException(book.Id);
+            logger.LogInformation("Getting book with id {Id}", id);
+            var book = await bookService.GetAsync(id);
+            if (book == null)
+            {
+                return NotFound( new { message = $"Book with id {id} not found" });
+            }
+            return book;
         }
-        return CreatedAtAction(nameof(Get), new { id = book.Id }, book);
-    }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> Update(string id, Book bookIn)
-    {
-        Console.WriteLine("P::Update book");
-        try
+        [HttpPost]
+        public async Task<ActionResult<Book>> Create(Book book)
         {
-            await bookService.UpdateAsync(id, bookIn);
-        } catch (MongoWriteException e)
-        {
-            throw new BookNotFoundException(id);
+            logger.LogInformation("Creating a new book");
+            try
+            {
+                await bookService.CreateAsync(book);
+            }
+            catch (MongoWriteException e)
+            {
+                throw new Exception($"Error creating book with id {book.Id}: {e.WriteError.Code}");
+            }
+            return CreatedAtAction(nameof(Get), new { id = book.Id }, book);
         }
-        return NoContent();
-    }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(string id)
-    {
-        Console.WriteLine("P::Delete book");
-        try
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(string id, Book bookIn)
         {
-            await bookService.RemoveAsync(id);
-        } catch (MongoWriteException e)
-        {
-            throw new BookNotFoundException(id);
+            logger.LogInformation("Updating book with id {Id}", id);
+            try
+            {
+                var book = await bookService.GetAsync(id);
+                if (book == null)
+                {
+                    return NotFound( new { message = $"Book with id {id} not found" });
+                }
+                await bookService.UpdateAsync(id, bookIn);
+            }
+            catch (MongoWriteException e)
+            {
+                throw new Exception($"Error updating book with id {id}: {e.WriteError.Code}");
+            }
+            return Ok();
         }
-        return NoContent();
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            
+            logger.LogInformation("Deleting book with id {Id}", id);
+            try
+            {
+                var book = await bookService.GetAsync(id);
+                if (book == null)
+                {
+                    return NotFound( new { message = $"Book with id {id} not found" });
+                }
+                await bookService.RemoveAsync(id);
+            }
+            catch (MongoWriteException e)
+            {
+                throw new Exception($"Error deleting book with id {id}: {e.WriteError.Code}");
+            }
+            return Ok();
+        }
     }
 }
