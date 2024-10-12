@@ -1,10 +1,18 @@
 using Microsoft.Extensions.Options;
 using THebook.ExceptionError;
 using THebook.Middleware;
+using Microsoft.AspNetCore.HttpLogging;
 using THebook.Repository;
 using THebook.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Enable HTTP logging
+
+builder.Services.AddHttpLogging(logging =>
+{
+    logging.LoggingFields = HttpLoggingFields.RequestMethod | HttpLoggingFields.RequestPath;
+});
 
 // Add MongoDB
 
@@ -18,6 +26,8 @@ builder.Services.AddSingleton<BookService>();
 
 // Add services to the container.
 
+builder.Services.AddLogging(); // Thêm dòng này để cấu hình logging
+
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -29,6 +39,8 @@ builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 app.UseExceptionHandler();
+
+app.UseHttpLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
