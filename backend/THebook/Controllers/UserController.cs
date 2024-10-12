@@ -16,10 +16,10 @@ namespace THebook.Controllers
             _mongoDBService = mongoDBService;
         }
 
-        [HttpGet]
-        public async Task<List<User>> Get()
-        {
-            return await _mongoDBService.GetAsync();
-        }
+        // [HttpGet]
+        // public async Task<List<User>> Get()
+        // {
+        //     return await _mongoDBService.GetAsync();
+        // }
     }
 }
