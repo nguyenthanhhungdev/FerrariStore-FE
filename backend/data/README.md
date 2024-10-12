@@ -22,3 +22,9 @@
 8. bam Import
 9. kiem tra lai collection
 https://github.com/bhbghghbgb/thebook.git
+
+## neu cai mongo ko cai service
+
+1. tao thu muc .mongodb trong thu muc user cua ban
+2. copy file mongod.cfg vao thu muc cai mongo\bin
+3. copy admin moi dc
