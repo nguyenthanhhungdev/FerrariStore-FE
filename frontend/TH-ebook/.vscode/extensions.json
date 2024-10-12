@@ -4,5 +4,6 @@
     "esbenp.prettier-vscode",
     "antfu.vite",
     "vitest.explorer",
+    "bradlc.vscode-tailwindcss",
   ]
 }
