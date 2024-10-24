@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace THebook.Models
 {
-    public class Book
+    public class BookDb
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -36,14 +36,14 @@ namespace THebook.Models
 
         [BsonElement("created_at")]
         [JsonPropertyName("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; } = null!;
 
         [BsonElement("updated_at")]
         [JsonPropertyName("updated_at")]
-        public DateTime UpdatedAt { get; set; }
-        
+        public DateTime? UpdatedAt { get; set; } = null!;
+
         [BsonElement("authors")]
         [JsonPropertyName("authors")]
-        public string[]? Authors { get; set; } = null!;
+        public string[]? Authors { get; set; } = [];
     }
 }

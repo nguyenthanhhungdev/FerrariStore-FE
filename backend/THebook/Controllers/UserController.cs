@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using THebook.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using THebook.Services;
 
 namespace THebook.Controllers

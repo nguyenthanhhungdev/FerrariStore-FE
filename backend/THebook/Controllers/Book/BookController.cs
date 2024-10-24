@@ -1,25 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
-using THebook.ExceptionError;
 using THebook.Models;
 using THebook.Services;
-using Microsoft.Extensions.Logging;
 
-namespace THebook.Controllers
+namespace THebook.Controllers.Book
 {
-    [Route("api/[controller]")]
+    [Route("book/[controller]")]
     [ApiController]
     public class BookController(BookService bookService, ILogger<BookController> logger) : Controller
     {
         [HttpGet]
-        public async Task<ActionResult<List<Book>>> Get()
+        public async Task<ActionResult<List<BookDb>>> Get()
         {
             logger.LogInformation("Getting all books");
             return await bookService.GetAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> Get(string id)
+        public async Task<ActionResult<BookDb>> Get(string id)
         {
             logger.LogInformation("Getting book with id {Id}", id);
             var book = await bookService.GetAsync(id);
@@ -31,7 +29,7 @@ namespace THebook.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Book>> Create(Book book)
+        public async Task<ActionResult<BookDb>> Create(BookDb book)
         {
             logger.LogInformation("Creating a new book");
             try
@@ -46,7 +44,7 @@ namespace THebook.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(string id, Book bookIn)
+        public async Task<ActionResult> Update(string id, BookDb bookIn)
         {
             logger.LogInformation("Updating book with id {Id}", id);
             try

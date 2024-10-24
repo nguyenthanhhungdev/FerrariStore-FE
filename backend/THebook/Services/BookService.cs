@@ -1,5 +1,4 @@
 using System.Linq.Expressions;
-using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using THebook.Models;
@@ -15,50 +14,48 @@ namespace THebook.Services;
  * 2. BookService sẽ có một constructor nhận một tham số kiểu IOptions<MongoDBSettings> và một tham số kiểu MongoDBService
  * MongoDbSettings sẽ chứa thông tin cấu hình của MongoDB, trong khi MongoDBService sẽ cung cấp các biến Database để thao tác với MongoDB
  * 3. Trong constructor, tạo một thể hiện của MongoClient và sử dụng nó để lấy thể hiện của IMongoDatabase
- * 
+ *
  */
 
 
 public class BookService(IMongoDBSettings mongoDbSettings, MongoDBService mongoDbService)
 {
+    private readonly IMongoCollection<BookDb> _bookCollection =
+        mongoDbService.Database.GetCollection<BookDb>(mongoDbSettings.CollectionNames[" "]);
 
-    private readonly IMongoCollection<Book> _bookCollection = mongoDbService.Database.GetCollection<Book>(mongoDbSettings.CollectionNames["Book"]);
-    public async Task<List<Book>> GetAsync()
+    public async Task<List<BookDb>> GetAsync()
     {
         return await _bookCollection.Find(new BsonDocument()).ToListAsync();
     }
-    
-    public async Task<Book> GetAsync(string id)
+
+    public async Task<BookDb> GetAsync(string id)
     {
         return await _bookCollection.Find(book => book.Id == id).FirstOrDefaultAsync();
     }
-    
-    public async Task<Book> CreateAsync(Book book)
+
+    public async Task<BookDb> CreateAsync(BookDb book)
     {
         await _bookCollection.InsertOneAsync(book);
         return book;
     }
-    
-    public async Task UpdateAsync(string id, Book bookIn)
+
+    public async Task UpdateAsync(string id, BookDb bookIn)
     {
         await _bookCollection.ReplaceOneAsync(book => book.Id == id, bookIn);
     }
-    
-    public async Task RemoveAsync(Book bookIn)
+
+    public async Task RemoveAsync(BookDb bookIn)
     {
         await _bookCollection.DeleteOneAsync(book => book.Id == bookIn.Id);
     }
-    
+
     public async Task RemoveAsync(string id)
     {
         await _bookCollection.DeleteOneAsync(book => book.Id == id);
     }
-    
-    public async Task<List<Book>> GetAsync(Expression<Func<Book, bool>> filter)
+
+    public async Task<List<BookDb>> GetAsync(Expression<Func<BookDb, bool>> filter)
     {
         return await _bookCollection.Find(filter).ToListAsync();
     }
-    
-    
-    
 }
