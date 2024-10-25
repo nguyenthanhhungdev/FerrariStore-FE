@@ -1,7 +1,7 @@
 ﻿namespace THebook.Repository
 {
 
-    public class MongoDBSettings : IMongoDBSettings
+    public class MongoDbSettings : IMongoDbSettings
     {
         public string ConnectionURI { get; set; } = null!;
         public string DatabaseName { get; set; } = null!;

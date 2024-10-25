@@ -9,12 +9,8 @@ using THebook.Models.Enums;
 
 namespace THebook.Models.Entities
 {
-    public class TagEntity
+    public class TagEntity : BaseDbModel
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; } = null!;
-
         [BsonElement("name")]
         [JsonPropertyName("name")]
         public string? Name { get; set; } = null!;

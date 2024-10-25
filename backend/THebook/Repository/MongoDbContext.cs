@@ -2,45 +2,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using MongoDB.Driver;
+using MongoDB.EntityFrameworkCore.Extensions;
 using THebook.Models;
-// using Microsoft.EntityFrameworkCore;
-// using MongoDB.EntityFrameworkCore.Extensions;
 using THebook.Models.Entities;
 
 namespace THebook.Repository
 {
-    // public class MongoDbContext : DbContext
-    // {
-    //     public DbSet<Tag> Tags { get; init; }
-
-    //     public MongoDbContext(DbContextOptions options)
-    //         : base(options) { }
-
-    //     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    //     {
-    //         base.OnModelCreating(modelBuilder);
-    //         modelBuilder.Entity<Tag>().ToCollection("tag");
-    //     }
-    // }
-    public class MongoDbContext
+    public class MongoDbContext(
+        DbContextOptions dbContextOptions,
+        IOptions<MongoDbSettings> mongoDbSettings
+    ) : DbContext(dbContextOptions)
     {
-        private IMongoClient Client { get; init; }
-        private IMongoDatabase Database { get; init; }
+        private MongoDbSettings MongoDbSettings { get; init; } = mongoDbSettings.Value;
+        public DbSet<TagEntity> Tags { get; init; }
+        public DbSet<BookDb> Books { get; init; }
 
-        public IMongoCollection<TagEntity> Tags { get; init; }
-        public IMongoCollection<BookDb> Books { get; init; }
-
-        public MongoDbContext(IOptions<MongoDBSettings> mongoDbSettings)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var s = mongoDbSettings.Value;
-
-            Client = new MongoClient(s.ConnectionURI);
-            Database = Client.GetDatabase(s.DatabaseName);
-
-            Tags = Database.GetCollection<TagEntity>(s.CollectionNames["Tag"]);
-            Books = Database.GetCollection<BookDb>(s.CollectionNames["Book"]);
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TagEntity>().ToCollection(MongoDbSettings.CollectionNames["Tag"]);
+            modelBuilder.Entity<BookDb>().ToCollection(MongoDbSettings.CollectionNames["Book"]);
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options) =>
+            options.UseMongoDB(MongoDbSettings.ConnectionURI, MongoDbSettings.DatabaseName);
     }
 }

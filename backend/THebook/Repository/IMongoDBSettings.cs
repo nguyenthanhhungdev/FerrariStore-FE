@@ -1,6 +1,6 @@
 namespace THebook.Repository;
 
-public interface IMongoDBSettings
+public interface IMongoDbSettings
 {
     string ConnectionURI { get; set; }
     string DatabaseName { get; set; }

@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using THebook.Models.Entities;
+using THebook.Models.Queries;
 
 namespace THebook.Repository
 {
-    public interface ITagRepository
+    public interface ITagRepository : ICrudRepository<TagEntity>
     {
-        Task<List<TagEntity>> FindAsync();
-        Task<TagEntity?> FindByIdAsync(string id);
-        Task<TagEntity?> FindByNameAsync(string id);
-        Task InsertAsync(TagEntity tag);
-        Task ReplaceAsync(string id, TagEntity tag);
-        Task DeleteAsync(string id);
+        Task<TagEntity?> FindByNameAsync(string name);
+        Task<IEnumerable<TagEntity>> FindAsync(TagCriteria criteria);
     }
 }

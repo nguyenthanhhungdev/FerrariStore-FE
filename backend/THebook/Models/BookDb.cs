@@ -4,12 +4,8 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace THebook.Models
 {
-    public class BookDb
+    public class BookDb : BaseDbModel
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; } = null!;
-
         [BsonElement("title")]
         [JsonPropertyName("title")]
         public string? Title { get; set; } = null!;
