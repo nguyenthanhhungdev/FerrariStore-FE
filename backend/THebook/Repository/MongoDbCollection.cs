@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Configuration;
@@ -25,7 +21,7 @@ public class MongoDbCollection
     )
     {
         var settings = MongoClientSettings.FromConnectionString(
-            mongoDbSettings.Value.ConnectionURI
+            mongoDbSettings.Value.ConnectionUri
         );
         // https://stackoverflow.com/a/77537230
         settings.LoggingSettings = new LoggingSettings(loggerFactory, 10_000);

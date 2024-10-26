@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using THebook.Models.Entities;
 using THebook.Models.Queries;
 using THebook.Repository;

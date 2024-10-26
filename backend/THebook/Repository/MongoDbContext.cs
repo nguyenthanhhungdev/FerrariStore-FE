@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using MongoDB.EntityFrameworkCore.Extensions;
@@ -27,6 +23,6 @@ namespace THebook.Repository
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) =>
-            options.UseMongoDB(MongoDbSettings.ConnectionURI, MongoDbSettings.DatabaseName);
+            options.UseMongoDB(MongoDbSettings.ConnectionUri, MongoDbSettings.DatabaseName);
     }
 }

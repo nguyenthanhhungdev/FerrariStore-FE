@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using THebook.Models.Entities;
@@ -35,7 +34,7 @@ public partial class TagRepository(
 
     public async Task<TagEntity?> FindByNameAsync(string name)
     {
-        return await _collection.Find(tag => tag.Name == name.ToLower()).FirstOrDefaultAsync();
+        return await _collection.Find(tag => tag.Name == name).FirstOrDefaultAsync();
     }
 
     [LoggerMessage(Level = LogLevel.Debug, Message = "Find all with criteria {Criteria}.")]
