@@ -1,4 +1,5 @@
 import { Author } from "./Author";
+import {Category} from "./Category.ts";
 
 export interface Book {
     id: string,
@@ -12,4 +13,5 @@ export interface Book {
     updated_at: string;
     authors: Author[];
     coins: number;
+    category: Category[];
 }
