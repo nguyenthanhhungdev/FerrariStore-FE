@@ -1,25 +1,43 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Repository;
 using THebook.Models;
 
 namespace THebook.Repository;
 
-public partial class CrudRepository<T>(IMongoCollection<T> collection, MongoDbContext context)
-    : ICrudRepository<T>
+public partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRepository<T>
     where T : BaseDbModel
 {
-    protected readonly IMongoCollection<T> _collection = collection;
-    protected readonly MongoDbContext _context = context;
+    protected readonly IMongoCollection<T> _collection;
+    protected readonly ILogger<CrudRepository<T>> _logger;
+
+    public CrudRepository(
+        ThEbookContext context,
+        IOptions<MongoDbSettings> mongoDbSettings,
+        ILogger<CrudRepository<T>> logger
+    )
+        : base(context)
+    {
+        _collection = Context.GetCollection<T>(
+            mongoDbSettings.Value.CollectionNames[typeof(T).Name]
+        );
+        _logger = logger;
+    }
 
     public async Task<IEnumerable<T>> FindAllAsync()
     {
-        return await _collection.Find(new BsonDocument()).ToListAsync();
+        var f = _collection.Find(new BsonDocument());
+        LogFinder(_logger, f);
+        return await f.ToListAsync();
     }
 
     public async Task<T?> FindByIdAsync(string id)
     {
-        return await _collection.Find(document => document.Id == id).FirstOrDefaultAsync();
+        var f = _collection.Find(document => document.Id == id);
+        LogFinder(_logger, f);
+        return await f.FirstOrDefaultAsync();
     }
 
     public async Task InsertAsync(T entity)
@@ -35,22 +53,6 @@ public partial class CrudRepository<T>(IMongoCollection<T> collection, MongoDbCo
     public async Task DeleteAsync(string id)
     {
         await _collection.DeleteOneAsync(document => document.Id == id);
-    }
-
-    public async Task<IEnumerable<T>> EfcFindAllAsync()
-    {
-        return await _context.Set<T>().ToListAsync();
-    }
-
-    public async Task<T?> EfcFindByIdAsync(string id)
-    {
-        return await _context.Set<T>().Where(entity => entity.Id == id).FirstOrDefaultAsync();
-    }
-
-    public async Task<int> EfcInsertAsync(T entity)
-    {
-        await _context.Set<T>().AddAsync(entity);
-        return await _context.SaveChangesAsync();
     }
 
     [LoggerMessage(Level = LogLevel.Debug, Message = "Find fluent generated {findFluent}.")]

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace THebook.Controllers
+namespace THebook.Controllers.Test
 {
-    [Route("api/[controller]")]
+    [Route("test/[controller]")]
     [ApiController]
     public class HomeController : ControllerBase
     {

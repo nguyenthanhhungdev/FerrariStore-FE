@@ -27,7 +27,7 @@ namespace THebook.Controllers.Tag
         [HttpGet]
         public async Task<IEnumerable<TagEntity>> Get([FromQuery] TagCriteria criteria)
         {
-            await ValidationHelper.ValidateAndThrowAsync(_tagValidator, criteria, ModelState);
+            await ValidationHelper.ValidateAndThrowAsync(_tagValidator, ModelState, criteria);
             return await _tagService.GetTagsAsync(criteria);
         }
 
@@ -36,8 +36,8 @@ namespace THebook.Controllers.Tag
         {
             await ValidationHelper.ValidateAndThrowAsync(
                 _idValidator,
-                new QueryObjectId { Id = id },
-                ModelState
+                ModelState,
+                new QueryObjectId { Id = id }
             );
             return await _tagService.GetTagByIdAsync(id);
         }

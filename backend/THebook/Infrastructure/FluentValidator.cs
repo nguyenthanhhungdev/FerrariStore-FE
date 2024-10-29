@@ -39,8 +39,8 @@ public static class ValidationHelper
 {
     public static async Task ValidateAndThrowAsync<T>(
         IValidator<T> validator,
-        T instance,
-        ModelStateDictionary modelState
+        ModelStateDictionary modelState,
+        T instance
     )
     {
         var result = await validator.ValidateAsync(instance);

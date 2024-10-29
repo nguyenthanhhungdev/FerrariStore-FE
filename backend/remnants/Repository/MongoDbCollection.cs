@@ -9,8 +9,10 @@ namespace THebook.Repository;
 public class MongoDbCollection
 {
     // private MongoDbSettings MongoDbSettings { get; init; }
-    // private MongoClient MongoClient { get; init; }
-    private IMongoDatabase MongoDatabase { get; init; }
+    private MongoClient MongoClient { get; init; }
+
+    // private IMongoDatabase MongoDatabase { get; init; }
+    private readonly List<Func<Task>> _commands = [];
 
     public IMongoCollection<TagEntity> Tags { get; init; }
     public IMongoCollection<BookDb> Books { get; init; }
@@ -24,8 +26,13 @@ public class MongoDbCollection
             mongoDbSettings.Value.ConnectionUri
         );
         // https://stackoverflow.com/a/77537230
-        settings.LoggingSettings = new LoggingSettings(loggerFactory, 10_000);
-        MongoDatabase = new MongoClient(settings).GetDatabase(mongoDbSettings.Value.DatabaseName);
+        settings.LoggingSettings = new LoggingSettings(
+            loggerFactory,
+            mongoDbSettings.Value.MaxCharacterQueryLog
+        );
+        settings.ConnectTimeout = TimeSpan2.Parse(mongoDbSettings.Value.ConnectionTimeout);
+        MongoClient = new MongoClient(settings);
+        var MongoDatabase = MongoClient.GetDatabase(mongoDbSettings.Value.DatabaseName);
 
         Tags = MongoDatabase.GetCollection<TagEntity>(mongoDbSettings.Value.CollectionNames["Tag"]);
         Books = MongoDatabase.GetCollection<BookDb>(mongoDbSettings.Value.CollectionNames["Book"]);

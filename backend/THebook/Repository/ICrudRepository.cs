@@ -1,4 +1,3 @@
-// File: backend/THebook/Repository/IGenericRepository.cs
 using THebook.Models;
 
 namespace THebook.Repository

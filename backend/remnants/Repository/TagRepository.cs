@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using THebook.Models.Entities;
@@ -8,11 +7,13 @@ using THebook.Models.Queries;
 namespace THebook.Repository;
 
 public partial class TagRepository(
-    ThEbookContext context,
-    IOptions<MongoDbSettings> mongoDbSettings,
+    MongoDbCollection collection,
+    MongoDbContext context,
     ILogger<TagRepository> logger
-) : CrudRepository<TagEntity>(context, mongoDbSettings, logger), ITagRepository
+) : CrudRepository<TagEntity>(collection.Tags, context), ITagRepository
 {
+    private readonly ILogger<TagRepository> _logger = logger;
+
     public async Task<IEnumerable<TagEntity>> FindAsync(TagCriteria criteria)
     {
         LogTagCriteria(_logger, criteria);
