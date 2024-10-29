@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import NavBar from "./components/NavBar/NavBar.tsx";
+import BookDetailPage from "./pages/BookDetailPage.tsx";
+import { useMediaQuery } from "@mui/material";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Define the media query
+  const isMobile = useMediaQuery("(max-width: 576px)");
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="App flex flex-col flex-grow">
+        <div className="h-[var(--navbar-height)]">
+          <NavBar isMobile={isMobile} />
+        </div>
+        <BookDetailPage isMobile={isMobile} />
+        {/* <BookDetailTest/> */}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
+
+/* 
+
+
+h-: Đây là prefix của Tailwind CSS để đặt chiều cao (height) cho một phần tử.
+[var(--navbar-height)]: Đây là cú pháp tùy chỉnh của Tailwind CSS để sử dụng giá trị của biến CSS --navbar-height.
+
+
+*/
