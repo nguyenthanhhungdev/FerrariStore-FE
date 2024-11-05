@@ -1,3 +1,5 @@
+import {Button, IconButton } from "@material-tailwind/react";
+import {HiX} from "react-icons/hi"
 import React from "react";
 
 interface OverlayProps {
@@ -13,9 +15,11 @@ const OverlayComponent = ({ onClose, BarComponent }: OverlayProps) => {
         {BarComponent}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white text-2xl"
+          className="absolute text-2xl top-4 right-4"
+          variant="gradient"
+          color="deep-orange"
         >
-          &times;
+          <HiX />
         </button>
       </div>
     </div>

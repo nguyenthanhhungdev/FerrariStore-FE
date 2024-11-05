@@ -1,6 +1,6 @@
 import { Button, IconButton } from "@material-tailwind/react";
 import { HiArrowUp, HiBookOpen, HiFlag, HiDotsVertical } from "react-icons/hi";
-import MenuDefault from "../MenuDefault";
+import MenuDefault from "../Share/MenuDefault";
 
 interface Props {
   onAddToLibrary: () => void;

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply overflow-y-auto flex flex-grow text-white;
+    @apply overflow-y-auto;
     background-color: #242424;
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);

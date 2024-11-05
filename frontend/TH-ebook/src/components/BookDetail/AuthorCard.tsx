@@ -1,6 +1,6 @@
 import { Book } from "../../models/Book.ts";
 import { Chip } from "@material-tailwind/react";
-import CardDefault from "../CardDefault"; // Import CardDefault
+import CardDefault from "../Card/CardDefault.tsx"; // Import CardDefault
 
 interface AuthorProps {
   book: Book;
