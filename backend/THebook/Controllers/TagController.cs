@@ -6,9 +6,7 @@ using THebook.Models.Entities;
 using THebook.Models.Queries;
 using THebook.Services;
 
-#pragma warning disable IDE0130 // Namespace does not match folder structure
-namespace THebook.Controllers.Tag
-#pragma warning restore IDE0130 // Namespace does not match folder structure
+namespace THebook.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
