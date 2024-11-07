@@ -7,6 +7,7 @@ interface Props {
   onPreview: () => void;
   onPreoder: () => void;
   onSub: () => void;
+  onRead: () => void;
   isMobile: boolean;
 }
 
@@ -15,6 +16,7 @@ const ButtonGroupContainer = ({
   onSub,
   onPreview,
   onPreoder,
+  onRead,
   isMobile,
 }: Props) => {
   const menuItems = [
@@ -65,7 +67,7 @@ const ButtonGroupContainer = ({
           >
             Add To Library
           </Button>
-          <IconButton color="light-blue" size="lg">
+          <IconButton color="light-blue" size="lg" onClick={() => onRead()}>
             <HiBookOpen />
           </IconButton>
           <IconButton color="light-blue" size="lg">

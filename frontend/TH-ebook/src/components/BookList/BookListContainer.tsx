@@ -5,8 +5,8 @@ import RatingsContainer from "../BookDetail/RatingsContainer";
 
 interface Props {
   books: Book[];
-  // onClick: (bookId: string) => void;
-    onClick: (book: Book) => void;
+  onClick: (bookId: string) => void;
+  //   onClick: (book: Book) => void;
 }
 
 const BookListContainer = ({ books, onClick }: Props) => {
@@ -17,8 +17,8 @@ const BookListContainer = ({ books, onClick }: Props) => {
           <div
             key={book.id}
             className="manga-card grid grid-areas-product-list grid-cols-[84px auto 1fr auto auto] bg-gray-800"
-            // onClick={() => onClick(book.id)}
-            onClick={() => onClick(book)}
+            onClick={() => onClick(book.id)}
+            // onClick={() => onClick(book)}
           >
             <img
               className="cover grid-in-cover w-35 h-40 mr-5"

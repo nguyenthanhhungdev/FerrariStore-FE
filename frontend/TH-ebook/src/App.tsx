@@ -1,15 +1,16 @@
 import NavBar from "./components/NavBar/NavBar.tsx";
 import BookDetailPage from "./pages/BookDetailPage.tsx";
-import {useMediaQuery} from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 import HomePage from "./pages/HomePage.tsx";
 // import { Category } from "./models/Category.ts";
-import {Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 // import { Book } from "./models/Book.ts";
 import BookListPage from "./pages/BookListPage.tsx";
-import {useSelector} from "react-redux";
-import {RootState} from "./store/store.ts";
-import SignUpForm from "./components/SignIn-Register/SignUpForm.tsx";
-import SignInForm from "./components/SignIn-Register/SignInForm.tsx";
+import { useSelector } from "react-redux";
+import { RootState } from "./store/store.ts";
+import SignUpPage from "./pages/SignUpPage.tsx";
+import SignInPage from "./pages/SignInPage.tsx";
+import ReaderPage from "./pages/ReaderPage.tsx";
 
 function App() {
   // Define the media query
@@ -22,15 +23,17 @@ function App() {
   return (
     <>
       {/* <div className="App flex flex-grow text-color"> */}
-      <div className="App flex flex-col flex-grow">
-        {!location.pathname.startsWith("/auth")  &&(<div className="h-[var(--navbar-height)]">
-          <NavBar isMobile={isMobile}/>
-        </div>)}
+      <div className="App flex flex-col flex-grow w-full h-full">
+        {!location.pathname.startsWith("/auth") && (
+          <div className="h-[var(--navbar-height)]">
+            <NavBar isMobile={isMobile} />
+          </div>
+        )}
         <div className="md-content flex-grow">
           <Routes>
             <Route path="/auth">
-              <Route path="signup" element={<SignUpForm />} />
-              <Route path="signin" element={<SignInForm />} />
+              <Route path="signup" element={<SignUpPage />} />
+              <Route path="signin" element={<SignInPage />} />
             </Route>
             <Route
               path="/"
@@ -44,6 +47,7 @@ function App() {
               path="/book/trending"
               element={<BookListPage header={"Trending"} />}
             />
+            <Route path="/reader/:id/:pg?" element={<ReaderPage />}></Route>
           </Routes>
         </div>
       </div>

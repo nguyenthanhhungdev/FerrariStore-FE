@@ -6,20 +6,21 @@ import {IconButton} from "@material-tailwind/react";
 
 interface Props {
   header: string;
+  books: Book[];
 }
 
-const BookListPage = ({ header }: Props) => {
+const BookListPage = ({ header, books }: Props) => {
   const navigate = useNavigate();
-  // const handleBookClick = (bookId: string) => {
-  //   navigate(`/book/${bookId}`);
-  // };
-
-  const location = useLocation();
-  const { books } = location.state as { books: Book[] };
-
-  const handleBookClick = (book: Book) => {
-    navigate(`/book/${book.id}`, { state: { book } });
+  const handleBookClick = (bookId: string) => {
+    navigate(`/book/${bookId}`);
   };
+
+  // const location = useLocation();
+  // const { books } = location.state as { books: Book[] };
+  //
+  // const handleBookClick = (book: Book) => {
+  //   navigate(`/book/${book.id}`, { state: { book } });
+  // };
   const handleBackClick = () => {
     navigate(-1);
   };

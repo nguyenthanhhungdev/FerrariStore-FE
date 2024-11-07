@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import {Category} from "../../models/Category.ts";
 
 /*
@@ -8,19 +8,19 @@ import {Category} from "../../models/Category.ts";
 * */
 
 const categories: Category[] = [
-    { name: "Action" },
-    { name: "Adventure" },
-    { name: "Comedy" },
-    { name: "Drama" },
-    { name: "Fantasy" },
-    { name: "Horror" },
-    { name: "Mystery" },
-    { name: "Romance" },
-    { name: "Sci-Fi" },
-    { name: "Thriller" },
-    { name: "Western" },
-    { name: "Biography" },
-    { name: "Cookbook" },
+    {name: "Action"},
+    {name: "Adventure"},
+    {name: "Comedy"},
+    {name: "Drama"},
+    {name: "Fantasy"},
+    {name: "Horror"},
+    {name: "Mystery"},
+    {name: "Romance"},
+    {name: "Sci-Fi"},
+    {name: "Thriller"},
+    {name: "Western"},
+    {name: "Biography"},
+    {name: "Cookbook"},
 ];
 
 const initialState = [
@@ -37,7 +37,7 @@ const initialState = [
         language: "vi",
         created_at: "2024-10-10T08:31:36.732Z",
         updated_at: "2024-10-10T08:31:36.732Z",
-        authors: [{ name: "Nguyen Thanh Hung" }, { name: "Huynh Gia Bao" }],
+        authors: [{name: "Nguyen Thanh Hung"}, {name: "Huynh Gia Bao"}],
         coins: 50,
         category: categories,
     },
@@ -53,7 +53,7 @@ const initialState = [
         language: "vi",
         created_at: "2024-10-10T08:31:36.732Z",
         updated_at: "2024-10-10T08:31:36.732Z",
-        authors: [{ name: "Nguyen Thanh Hung" }, { name: "Huynh Gia Bao" }],
+        authors: [{name: "Nguyen Thanh Hung"}, {name: "Huynh Gia Bao"}],
         coins: 50,
         category: categories,
     },
@@ -69,7 +69,7 @@ const initialState = [
         language: "vi",
         created_at: "2024-10-10T08:31:36.732Z",
         updated_at: "2024-10-10T08:31:36.732Z",
-        authors: [{ name: "Nguyen Thanh Hung" }, { name: "Huynh Gia Bao" }],
+        authors: [{name: "Nguyen Thanh Hung"}, {name: "Huynh Gia Bao"}],
         coins: 50,
         category: categories,
     },
@@ -85,10 +85,61 @@ const initialState = [
         language: "vi",
         created_at: "2024-10-10T08:31:36.732Z",
         updated_at: "2024-10-10T08:31:36.732Z",
-        authors: [{ name: "Nguyen Thanh Hung" }, { name: "Huynh Gia Bao" }],
+        authors: [{name: "Nguyen Thanh Hung"}, {name: "Huynh Gia Bao"}],
         coins: 50,
         category: categories,
     },
+
+
+    {
+        id: "123456785",
+        title: "Test ",
+        description:
+            'Mia is a half-succubus, but she bitterly hates the devil part of her genetics. "I\'m not lewd!", she said. "All men are monkey", she said. Yet, karma often comes sooner than expected.',
+        cover_image:
+            "https://img.perlego.com/book-covers/2193445/9781351768290_300_450.webp",
+        file_path: "dede",
+        published_year: 2023,
+        language: "vi",
+        created_at: "2024-10-10T08:31:36.732Z",
+        updated_at: "2024-10-10T08:31:36.732Z",
+        authors: [{name: "Nguyen Thanh Hung"}, {name: "Huynh Gia Bao"}],
+        coins: 50,
+        category: categories,
+    },
+    {
+        id: "123456785",
+        title: "Test 2",
+        description:
+            'Mia is a half-succubus, but she bitterly hates the devil part of her genetics. "I\'m not lewd!", she said. "All men are monkey", she said. Yet, karma often comes sooner than expected.',
+        cover_image:
+            "https://img.perlego.com/book-covers/2193445/9781351768290_300_450.webp",
+        file_path: "dede",
+        published_year: 2023,
+        language: "vi",
+        created_at: "2024-10-10T08:31:36.732Z",
+        updated_at: "2024-10-10T08:31:36.732Z",
+        authors: [{name: "Nguyen Thanh Hung"}, {name: "Huynh Gia Bao"}],
+        coins: 50,
+        category: categories,
+    },
+    {
+        id: "123456785",
+        title: "test 3",
+        description:
+            'Mia is a half-succubus, but she bitterly hates the devil part of her genetics. "I\'m not lewd!", she said. "All men are monkey", she said. Yet, karma often comes sooner than expected.',
+        cover_image:
+            "https://img.perlego.com/book-covers/2193445/9781351768290_300_450.webp",
+        file_path: "dede",
+        published_year: 2023,
+        language: "vi",
+        created_at: "2024-10-10T08:31:36.732Z",
+        updated_at: "2024-10-10T08:31:36.732Z",
+        authors: [{name: "Nguyen Thanh Hung"}, {name: "Huynh Gia Bao"}],
+        coins: 50,
+        category: categories,
+    }
+
 
 ]
 

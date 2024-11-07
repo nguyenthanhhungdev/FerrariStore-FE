@@ -10,32 +10,37 @@ import {
 } from "@material-tailwind/react";
 import {useForm, SubmitHandler} from "react-hook-form";
 import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import { addUser } from "../../features/user/userSlice.ts";
+import {RootState} from "../../store/store.ts";
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+import {User} from "../../models/User.ts";
 
-interface ISignUpSchema {
-    username: string,
-    password: string,
-    confirmPassword: string,
-    email: string,
+const ISignUpSchema = yup.object().shape({
+    username: yup.string().required(),
+    password: yup.string().required(),
+    confirmPassword: yup.string().required(),
+    email: yup.string().email().required(),
 }
-
+)
 const SignUpForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const {
         register,
         handleSubmit,
         // watch,
-        formState: {errors}
-    } = useForm<ISignUpSchema>({
-        defaultValues: {
-            username: "",
-            password: "",
-            confirmPassword: "",
-            email: "",
-        }
-    });
-    const onSubmit: SubmitHandler<ISignUpSchema> = (data) => {
-        console.log(data);
+        formState: {errors},
+    } = useForm({ resolver: yupResolver(ISignUpSchema) });
+    const dispatch = useDispatch();
+
+    const onSubmit= (data: User) => {
+        const { username, password, email } = data;
+        dispatch(addUser({ username, password, email }));
     }
+
+    const users = useSelector((state: RootState) => state.user);
+    console.log("All users:", users);
     return (
         <Card className="w-96">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -53,7 +58,7 @@ const SignUpForm = () => {
                         {...register("username", {required: true, maxLength: 20})}
                         label="UserName"
                     />
-                    {errors.username && <p className="text-red-900">This field is required</p>}
+                    {errors.username && <p className="text-red-900">{errors.username.message}</p>}
 
                     <div className="relative flex w-full">
                         <Input
@@ -67,22 +72,20 @@ const SignUpForm = () => {
                             label="Show"
                         />
                     </div>
-                    {errors.password && <p className="text-red-900">This field is required</p>}
+                    {errors.password && <p className="text-red-900">{errors.password.message}</p>}
 
                     <Input
                         label="Confirm Password"
                         {...register("confirmPassword", {required: true, maxLength: 10})}
                         type="password"
                     />
-                    {errors.confirmPassword && <p className="text-red-900">This field is required</p>}
+                    {errors.confirmPassword && <p className="text-red-900">{errors.confirmPassword.message}</p>}
 
                     <Input
                         {...register("email", {required: true, pattern: /^\S+@\S+$/i})}
                         label="Email"
                     />
-                    {/*{errors.email && <p className="text-red-900">This field is required</p>}*/}
-                    {errors.email?.type === "required" && <p className="text-red-900">This field is required</p>}
-                    {errors.email?.type === "pattern" && <p className="text-red-900">Invalid email address</p>}
+                    {errors.email && <p className="text-red-900">{errors.email.message}</p>}
 
                     <div className="-ml-2.5">
                         <Checkbox label="Remember Me"/>

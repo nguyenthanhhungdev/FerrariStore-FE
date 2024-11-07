@@ -6,16 +6,15 @@ import ButtonGroupContainer from "./ButtonGroupContainer.tsx";
 import TabDefault from "./TabDefault.tsx";
 import TagComponent from "./TagComponent.tsx";
 import PartComponent from "./PartComponent.tsx";
+import { useNavigate } from "react-router-dom";
 
 interface BookDetailProps {
   book: Book;
   isMobile: boolean;
 }
 
-const BookDetail = ({
-  book,
-  isMobile,
-}: BookDetailProps) => {
+const BookDetail = ({ book, isMobile }: BookDetailProps) => {
+  const navigate = useNavigate();
   const handleAddToLibrary = () => {
     console.log("Add to library clicked");
   };
@@ -39,6 +38,7 @@ const BookDetail = ({
   const handleAuthorClick = (authorName: string) => {
     console.log(`Author clicked: ${authorName}`);
   };
+  const handleReadClick = () => navigate(`/reader/${book.id}`);
   const authors = book.authors.map((author) => author.name);
   const tabData = [
     {
@@ -111,13 +111,17 @@ const BookDetail = ({
             onPreview={handlePreview}
             onPreoder={handlePreorder}
             onSub={handleSub}
+            onRead={handleReadClick}
             isMobile={isMobile}
           />
         </div>
 
         {/* category */}
         <div className="grid-in-info sm:mx-2">
-          <CategoryContainer book={book} onCategoryClick={handleCategoryClick} />
+          <CategoryContainer
+            book={book}
+            onCategoryClick={handleCategoryClick}
+          />
         </div>
 
         {/* rating */}
@@ -127,7 +131,9 @@ const BookDetail = ({
 
         {/* description */}
         <div className="grid-in-synopsis overflow-hidden transition-[max-height,height]">
-          <p className="story-description py-2 text-xl md:text-lg sm:text-sm">{book.description}</p>
+          <p className="story-description py-2 text-xl md:text-lg sm:text-sm">
+            {book.description}
+          </p>
         </div>
 
         {/* 
