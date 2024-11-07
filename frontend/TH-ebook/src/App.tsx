@@ -23,19 +23,15 @@ function App() {
     <>
       {/* <div className="App flex flex-grow text-color"> */}
       <div className="App flex flex-col flex-grow">
-        {(window.location.pathname !== "/signup" && window.location.pathname !== "/signin")  &&(<div className="h-[var(--navbar-height)]">
+        {!location.pathname.startsWith("/auth")  &&(<div className="h-[var(--navbar-height)]">
           <NavBar isMobile={isMobile}/>
         </div>)}
         <div className="md-content flex-grow">
           <Routes>
-            <Route
-              path="/signup"
-              element={<SignUpForm />}
-            />
-            <Route
-              path="/signin"
-              element={<SignInForm />}
-            />
+            <Route path="/auth">
+              <Route path="signup" element={<SignUpForm />} />
+              <Route path="signin" element={<SignInForm />} />
+            </Route>
             <Route
               path="/"
               element={<HomePage isMobile={isMobile} books={books} />}
