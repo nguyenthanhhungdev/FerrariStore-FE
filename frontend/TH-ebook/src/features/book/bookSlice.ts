@@ -1,5 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {Category} from "../../models/Category.ts";
+
+/*
+*
+* Khi chuyển sang dùng API phải dùng Async Action để có thể lấy API
+*
+* */
+
 const categories: Category[] = [
     { name: "Action" },
     { name: "Adventure" },

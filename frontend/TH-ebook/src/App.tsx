@@ -8,6 +8,8 @@ import {Route, Routes} from "react-router-dom";
 import BookListPage from "./pages/BookListPage.tsx";
 import {useSelector} from "react-redux";
 import {RootState} from "./store/store.ts";
+import SignUpForm from "./components/SignIn-Register/SignUpForm.tsx";
+import SignInForm from "./components/SignIn-Register/SignInForm.tsx";
 
 function App() {
   // Define the media query
@@ -21,11 +23,19 @@ function App() {
     <>
       {/* <div className="App flex flex-grow text-color"> */}
       <div className="App flex flex-col flex-grow">
-        <div className="h-[var(--navbar-height)]">
-          <NavBar isMobile={isMobile} />
-        </div>
+        {(window.location.pathname !== "/signup" && window.location.pathname !== "/signin")  &&(<div className="h-[var(--navbar-height)]">
+          <NavBar isMobile={isMobile}/>
+        </div>)}
         <div className="md-content flex-grow">
           <Routes>
+            <Route
+              path="/signup"
+              element={<SignUpForm />}
+            />
+            <Route
+              path="/signin"
+              element={<SignInForm />}
+            />
             <Route
               path="/"
               element={<HomePage isMobile={isMobile} books={books} />}
