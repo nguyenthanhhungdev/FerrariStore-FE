@@ -1,5 +1,5 @@
 import { Button, IconButton } from "@material-tailwind/react";
-import { HiArrowUp, HiBookOpen, HiFlag, HiDotsVertical } from "react-icons/hi";
+import { HiArrowUp, HiBookOpen, HiDotsVertical, HiFlag } from "react-icons/hi";
 import MenuDefault from "../Share/MenuDefault";
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
   onPreoder: () => void;
   onSub: () => void;
   onRead: () => void;
+  onFlag: () => void;
   isMobile: boolean;
 }
 
@@ -17,6 +18,7 @@ const ButtonGroupContainer = ({
   onPreview,
   onPreoder,
   onRead,
+  onFlag,
   isMobile,
 }: Props) => {
   const menuItems = [
@@ -27,6 +29,9 @@ const ButtonGroupContainer = ({
           onClick={onPreview}
           size="lg"
           color="deep-orange"
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         >
           Preview
         </Button>
@@ -40,6 +45,9 @@ const ButtonGroupContainer = ({
           onClick={onPreoder}
           size="lg"
           color="deep-orange"
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         >
           Preorder
         </Button>
@@ -48,7 +56,15 @@ const ButtonGroupContainer = ({
     },
     {
       node: (
-        <Button variant="filled" onClick={onSub} size="lg" color="deep-orange">
+        <Button
+          variant="filled"
+          onClick={onSub}
+          size="lg"
+          color="deep-orange"
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
           Sub
         </Button>
       ),
@@ -64,16 +80,39 @@ const ButtonGroupContainer = ({
             onClick={onAddToLibrary}
             size="lg"
             color="deep-orange"
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
           >
             Add To Library
           </Button>
-          <IconButton color="light-blue" size="lg" onClick={() => onRead()}>
+          <IconButton
+            color="light-blue"
+            size="lg"
+            onClick={() => onRead()}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
             <HiBookOpen />
           </IconButton>
-          <IconButton color="light-blue" size="lg">
+          <IconButton
+            color="purple"
+            size="lg"
+            onClick={() => onFlag()}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
             <HiFlag />
           </IconButton>
-          <IconButton color="light-blue" size="lg">
+          <IconButton
+            color="light-blue"
+            size="lg"
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >
             <HiArrowUp />
           </IconButton>
         </div>
@@ -83,7 +122,13 @@ const ButtonGroupContainer = ({
             <>
               <MenuDefault
                 handlerButton={
-                  <IconButton color="light-blue" size="lg">
+                  <IconButton
+                    color="light-blue"
+                    size="lg"
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  >
                     <HiDotsVertical />
                   </IconButton>
                 }
@@ -97,6 +142,9 @@ const ButtonGroupContainer = ({
                 onClick={onSub}
                 size="lg"
                 color="deep-orange"
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
               >
                 Subscribe
               </Button>
@@ -105,6 +153,9 @@ const ButtonGroupContainer = ({
                 onClick={onPreview}
                 size="lg"
                 color="deep-orange"
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
               >
                 Preview
               </Button>
@@ -113,6 +164,9 @@ const ButtonGroupContainer = ({
                 onClick={onPreoder}
                 size="lg"
                 color="deep-orange"
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
               >
                 Preorder
               </Button>

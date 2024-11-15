@@ -6,13 +6,14 @@ interface Props {
   onContainerClick: (item: string) => void;
 }
 
-const TagComponent = ({ header, content, onContainerClick }: Props) => {
+const AuthorTagComponent = ({ header, content, onContainerClick }: Props) => {
   return (
-    <div className="header flex-col flex-wrap gap-x-4 gap-y-2">
+    <div className="flex-col flex-wrap gap-x-4 gap-y-2">
       {header && <h3 className="text-lg font-bold text-white mb-2">{header}:</h3>}
-      {content.map((item) => (
+      <div className="w-80">
+          {content.map((item) => (
         <Chip
-          className="inline-flex"
+          className="inline-flex break-words"
           key={item}
           variant="gradient"
           value={item}
@@ -21,8 +22,9 @@ const TagComponent = ({ header, content, onContainerClick }: Props) => {
           size="sm"
         />
       ))}
+        </div>
     </div>
   );
 };
 
-export default TagComponent;
+export default AuthorTagComponent;

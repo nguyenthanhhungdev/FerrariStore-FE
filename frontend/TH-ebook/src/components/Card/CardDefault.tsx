@@ -1,11 +1,10 @@
 import {
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
+  CardHeader,
 } from "@material-tailwind/react";
-import React, { useEffect, useState } from "react";
-import ColorThief from "colorthief";
+import React, { useEffect } from "react";
 
 interface Props {
   ComponentHeader: React.ReactNode;
@@ -14,43 +13,41 @@ interface Props {
   imageUrl?: string;
 }
 
-function CardDefault({ ComponentHeader, ComponentBody, ComponentFooter, imageUrl }: Props) {
-  const [shadowColor, setShadowColor] = useState<string>("rgba(0, 0, 0, 0.5)");
-
+function CardDefault({
+  ComponentHeader,
+  ComponentBody,
+  ComponentFooter,
+  imageUrl,
+}: Props) {
   useEffect(() => {
     if (!imageUrl) return;
 
     const img = new Image();
     img.crossOrigin = "Anonymous";
     img.src = imageUrl;
-    img.onload = () => {
-      const colorThief = new ColorThief();
-      const result = colorThief.getColor(img);
-      setShadowColor(`rgba(${result[0]}, ${result[1]}, ${result[2]}, 0.5)`);
-    };
   }, [imageUrl]);
 
   return (
     <>
-    <div className="card relative">
-    <Card className="mt-6 w-96" shadow={true} style={{ boxShadow: `0 4px 8px ${shadowColor}` }} variant="gradient" color="transparent">
-      <CardHeader className="relative xxlg:h-56 xlg:h-50 lg:h-45 md:h-40 sm:h-30 " style={{ backgroundColor: shadowColor }}>
-        {ComponentHeader}
-      </CardHeader>
-      <CardBody>
-        {ComponentBody.map((node, index) => (
-          <React.Fragment key={index}>{node}</React.Fragment>
-        ))}
-      </CardBody>
-      {ComponentFooter && (
-        <CardFooter className="pt-0">
-          {ComponentFooter.map((node, index) => (
-            <React.Fragment key={index}>{node}</React.Fragment>
-          ))}
-        </CardFooter>
-      )}
-    </Card>
-    </div>
+      <div className="card relative">
+        <Card className="mt-6 w-96" variant="gradient" color="transparent">
+          <CardHeader className="relative xxlg:h-56 xlg:h -50 lg:h-45 md:h-40 sm:h-30 ">
+            {ComponentHeader}
+          </CardHeader>
+          <CardBody>
+            {ComponentBody.map((node, index) => (
+              <React.Fragment key={index}>{node}</React.Fragment>
+            ))}
+          </CardBody>
+          {ComponentFooter && (
+            <CardFooter className="pt-0">
+              {ComponentFooter.map((node, index) => (
+                <React.Fragment key={index}>{node}</React.Fragment>
+              ))}
+            </CardFooter>
+          )}
+        </Card>
+      </div>
     </>
   );
 }

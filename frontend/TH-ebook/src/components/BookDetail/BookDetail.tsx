@@ -1,13 +1,18 @@
-import { Book } from "../../models/Book.ts";
-import CategoryContainer from "./CategoryContainer.tsx";
-import RatingsContainer from "./RatingsContainer.tsx";
-import TitleContainer from "./TitleContainer.tsx";
-import ButtonGroupContainer from "./ButtonGroupContainer.tsx";
-import TabDefault from "./TabDefault.tsx";
-import TagComponent from "./TagComponent.tsx";
-import PartComponent from "./PartComponent.tsx";
+import { Typography } from "@material-tailwind/react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Book } from "../../models/Book.ts";
+import AuthorTagComponent from "./AuthorTagComponent.tsx";
+import ButtonGroupContainer from "./ButtonGroupContainer.tsx";
+import CategoryContainer from "./CategoryContainer.tsx";
+import PartComponent from "./PartComponent.tsx";
+import RatingsContainer from "./RatingsContainer.tsx";
+import TabDefault from "./TabDefault.tsx";
 
+import {
+  TitleContainerFittyF,
+  TitleContainerFittyR,
+} from "./TitleContainer.tsx";
 interface BookDetailProps {
   book: Book;
   isMobile: boolean;
@@ -38,7 +43,7 @@ const BookDetail = ({ book, isMobile }: BookDetailProps) => {
   const handleAuthorClick = (authorName: string) => {
     console.log(`Author clicked: ${authorName}`);
   };
-  const handleReadClick = () => navigate(`/reader/${book.id}`);
+  const handleReadClick = () => navigate(`/book/${book.id}/${1}/${1}`);
   const authors = book.authors.map((author) => author.name);
   const tabData = [
     {
@@ -47,7 +52,7 @@ const BookDetail = ({ book, isMobile }: BookDetailProps) => {
       content: (
         <div className="flex gap-6 items-start">
           {/* Author */}
-          <TagComponent
+          <AuthorTagComponent
             header="Author"
             content={authors}
             onContainerClick={handleAuthorClick}
@@ -62,19 +67,19 @@ const BookDetail = ({ book, isMobile }: BookDetailProps) => {
       content: `Chúng tôi hiện đang tiếp tục xây dựng tính năng này. Các bạn có thể ủng hộ chúng tôi phát triển tính năng bằng cách đăng ký gói.`,
     },
   ];
+  const [rangeMode, setRangeMode] = useState<boolean>(true);
   return (
     <>
       {/* Container */}
       <div
         className="
-            container grid px-4
-            md:grid-areas-product-detail-mobile md:grid-cols-[200px_auto]
-            grid-areas-product-detail grid-cols-[1fr_200px_minmax(0,calc(1240px-3.5rem))_1fr]
-            w-full h-full m-0 p-0
-             "
+            grid gap-4 px-4
+            grid-areas-product-detail-mobile grid-cols-[200px_auto]
+            md:grid-areas-product-detail md:grid-cols-[1fr_200px_minmax(0,calc(1240px-3.5rem))_1fr]
+            w-full h-full m-0 p-0"
       >
         {/* Background Container */}
-        <div
+        {/* <div
           className="absolute top-0 left-0 z-[-2] w-full h-[250px] blur-sm bg-no-repeat  bg-gradient-to-t from-[
         before:content-['']
             before:absolute
@@ -91,17 +96,22 @@ const BookDetail = ({ book, isMobile }: BookDetailProps) => {
             backgroundPosition: "top 35% center",
             backgroundSize: "100%",
           }}
-        ></div>
-        <div className="nav-l grid-in-cover mr-5 mb-5">
-          <img
-            src={book.cover_image}
-            alt=""
-            className="w-52 h-80 object-cover"
-          />
+        ></div> */}
+        <div className="nav-l grid-in-cover">
+          <img src={book.cover_image} alt="" className="w-full" />
+          <Typography
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          >{`Fit Text mode: ${rangeMode ? "Range" : "Fixed"}`}</Typography>
         </div>
         {/*Tile*/}
         <div className="grid-in-title">
-          <TitleContainer book={book} />
+          {rangeMode ? (
+            <TitleContainerFittyR book={book} />
+          ) : (
+            <TitleContainerFittyF book={book} />
+          )}
         </div>
 
         {/*ButtonGroup*/}
@@ -112,12 +122,13 @@ const BookDetail = ({ book, isMobile }: BookDetailProps) => {
             onPreoder={handlePreorder}
             onSub={handleSub}
             onRead={handleReadClick}
+            onFlag={() => setRangeMode(!rangeMode)}
             isMobile={isMobile}
           />
         </div>
 
         {/* category */}
-        <div className="grid-in-info sm:mx-2">
+        <div className="grid-in-info">
           <CategoryContainer
             book={book}
             onCategoryClick={handleCategoryClick}
@@ -125,7 +136,7 @@ const BookDetail = ({ book, isMobile }: BookDetailProps) => {
         </div>
 
         {/* rating */}
-        <div className="grid-in-stats sm:mx-2 mt-auto sm:mt-0">
+        <div className="grid-in-stats">
           <RatingsContainer />
         </div>
 

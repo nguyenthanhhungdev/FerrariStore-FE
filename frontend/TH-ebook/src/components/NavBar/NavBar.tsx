@@ -1,10 +1,20 @@
-import { Navbar, Typography, IconButton, Card } from "@material-tailwind/react";
+import {
+  Navbar,
+  Typography,
+  IconButton,
+  Button,
+} from "@material-tailwind/react";
 import { HiMenu, HiSearch, HiUser } from "react-icons/hi";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { DrawerDefault } from "./DrawerDefault.tsx";
 import SearchBar from "./SearchBar.tsx";
 import OverlayComponent from "../Share/OverlayComponent.tsx";
 import CardPricing from "../Card/CardPricing.tsx";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { StateType } from "../../store/rootReducer.ts";
+import { logout } from "../../features/user/userSlice.ts";
+import MenuDefault from "../Share/MenuDefault.tsx";
 
 interface NavBarProps {
   isMobile: boolean;
@@ -12,21 +22,84 @@ interface NavBarProps {
 
 const NavBar = ({ isMobile }: NavBarProps) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const [searchOpen, setSearchOpen] = useState(false); // State for toggling SearchBar
   const [openPricing, setOpenPricing] = useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
+  const user = useSelector((state: StateType) => state.user);
+  const userLocalStorage = localStorage.getItem("useravatar");
+
+  console.log("User Local:", userLocalStorage);
+  console.log("User State:", user);
+
+  const handleOnSignIn = () => {
+    navigate("/auth/signin");
+  };
+  const handleOnSignUp = () => {
+    navigate("/auth/signup");
+  };
+  const dispatch = useDispatch();
+  const handleOnLogout = useCallback(() => {
+    dispatch(logout());
+    localStorage.removeItem("useravatar");
+    localStorage.removeItem("userid");
+    navigate("/");
+  }, [dispatch]);
+
+  const menuItems = [
+    {
+      node: (
+        <Button
+          variant="filled"
+          onClick={handleOnSignUp}
+          size="lg"
+          color="deep-orange"
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          Sign Up
+        </Button>
+      ),
+      onclick: () => handleOnSignUp(),
+    },
+    {
+      node: (
+        <Button
+          variant="filled"
+          onClick={handleOnSignIn}
+          size="lg"
+          color="deep-orange"
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          Sign In
+        </Button>
+      ),
+      onclick: () => handleOnSignIn(),
+    },
+  ];
 
   return (
     <>
       <Navbar
-        variant="gradient"
         color="transparent"
-        className="navbar mx-auto max-w-full w-full from-blue-gray-900 to-blue-gray-800 px-4 py-3"
+        className="navbar mx-auto max-w-full w-full px-4 py-3"
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
       >
         <div className="icon-bar flex flex-wrap items-center justify-between gap-y-4 text-white">
           <div className="flex items-center">
-            <IconButton className="ml-2" onClick={openDrawer}>
+            <IconButton
+              className="ml-2"
+              onClick={openDrawer}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
               <HiMenu className="w-6 h-6 text-white" />
             </IconButton>
             <Typography
@@ -34,6 +107,9 @@ const NavBar = ({ isMobile }: NavBarProps) => {
               href="/"
               variant="h6"
               className="mr-4 ml-2 cursor-pointer py-1.5 text-white text-3xl"
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
             >
               TH Ebook
             </Typography>
@@ -45,6 +121,9 @@ const NavBar = ({ isMobile }: NavBarProps) => {
               onClick={() => {
                 setOpenPricing(true);
               }}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
             >
               <a href="#" className="flex items-center">
                 Pricing
@@ -53,15 +132,66 @@ const NavBar = ({ isMobile }: NavBarProps) => {
           </div>
           <div className="flex items-center">
             {isMobile ? (
-              <IconButton className="ml-2" onClick={() => setSearchOpen(true)}>
+              <IconButton
+                className="ml-2"
+                onClick={() => setSearchOpen(true)}
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
                 <HiSearch className="w-6 h-6 text-white" />
               </IconButton>
             ) : (
               <SearchBar />
             )}
-            <IconButton className="ml-2">
-              <HiUser className="w-6 h-6 text-white" />
-            </IconButton>
+            <div>
+              {user.isLogin || userLocalStorage ? (
+                <MenuDefault
+                  handlerButton={
+                    <img
+                      src={
+                        user.data?.avatar ||
+                        (userLocalStorage ? JSON.parse(userLocalStorage) : "")
+                      }
+                      alt="User Avatar"
+                      className="w-10 h-10 ml-2 rounded-full object-cover object-center"
+                    />
+                  }
+                  menuItems={[
+                    {
+                      node: (
+                        <Button
+                          variant="filled"
+                          onClick={handleOnLogout}
+                          size="lg"
+                          color="deep-orange"
+                          placeholder={undefined}
+                          onPointerEnterCapture={undefined}
+                          onPointerLeaveCapture={undefined}
+                        >
+                          Logout
+                        </Button>
+                      ),
+                      onClick: () => handleOnLogout(),
+                    },
+                  ]}
+                ></MenuDefault>
+              ) : (
+                <MenuDefault
+                  handlerButton={
+                    <IconButton
+                      className="ml-2"
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      <HiUser className="w-6 h-6 text-white" />
+                    </IconButton>
+                  }
+                  menuItems={menuItems}
+                />
+              )}
+            </div>
           </div>
         </div>
       </Navbar>

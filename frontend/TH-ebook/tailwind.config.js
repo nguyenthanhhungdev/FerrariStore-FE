@@ -31,20 +31,26 @@ const config = {
           "synopsis synopsis",
           "content  content ",
         ],
-        "product-list": [
+        "product-list-comp-dense": [
           "cover title author stats status",
           "cover tags tags tags tags",
           "cover description description description description",
         ],
+        "product-list-comp-sparse": [
+          "cover title title",
+          "cover stats status",
+          "cover tags tags",
+          "cover description description",
+        ],
       },
-      screens: {
-        xxlg: { max: "1920px" },
-        xlg: { max: "1440px" },
-        lg: { max: "960px" },
-        md: { max: "768px" },
-        sm: { max: "480px" },
-        xsm: { max: "320px" },
-      },
+      // screens: {
+      //   xxlg: { max: "1920px" },
+      //   xlg: { max: "1440px" },
+      //   lg: { max: "960px" },
+      //   md: { max: "768px" },
+      //   sm: { max: "480px" },
+      //   xsm: { max: "320px" },
+      // },
     },
   },
   plugins: [

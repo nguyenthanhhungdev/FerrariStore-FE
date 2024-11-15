@@ -1,4 +1,4 @@
-import SignInForm from "../components/SignIn-Register/SignInForm.tsx";
+import SignInForm from "../components/SignIn-SignUp/SignInForm.tsx";
 
 const SignInPage = () => {
   return (

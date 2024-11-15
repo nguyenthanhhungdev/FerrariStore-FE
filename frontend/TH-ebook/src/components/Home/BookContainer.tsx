@@ -1,85 +1,76 @@
 import "swiper/css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Mousewheel, Scrollbar } from "swiper/modules";
+import { Mousewheel, Scrollbar } from "swiper/modules";
 import { Book } from "../../models/Book.ts";
-import { HiOutlineArrowSmRight, HiOutlineChevronDoubleRight} from "react-icons/hi";
+import {
+  HiOutlineArrowSmRight,
+  HiOutlineChevronDoubleRight,
+} from "react-icons/hi";
 import CardDefault from "../Card/CardDefault.tsx";
 import { Button, IconButton } from "@material-tailwind/react";
-import {useNavigate} from "react-router-dom"
+import LoadingSpinner from "../_Common/LoadingSpinner.tsx";
 
 interface Props {
   books: Book[];
+  isLoading: boolean;
+  errors: string;
   header: string;
   onClick: (book: Book) => void;
   onListClick: (books: Book[]) => void;
 }
 
-const BookContainer = ({ books, header, onClick, onListClick }: Props) => {
-  const navigate = useNavigate();
+const BookContainer = ({
+  books,
+  header,
+  onClick,
+  onListClick,
+  isLoading,
+  errors,
+}: Props) => {
+  if (isLoading) {
+    return <LoadingSpinner isLoading={isLoading} />;
+  }
 
-  // const handleBookClick = (bookId: string) => {
-  //   navigate(`/book/${bookId}`);
-  // };
-
-  // const handleListClick = () => {
-  //   navigate("/book/trending");
-  // }
+  if (errors) {
+    return <div className="text-2xl text-red-900">Error loading data</div>;
+  }
   return (
     <>
       <div className="w-full">
         <div className="md:overflow-hidden mx-20">
-            <div className="flex justify-between items-center text-2xl mb-4">
-                <h1 className="text-white text-4xl lg:text-2xl md:text-xl sm:text-base font-bold">{header}</h1>
-                <IconButton color="deep-orange" size="lg" onClick={()=> onListClick(books)}>
-                    <HiOutlineChevronDoubleRight className="text-white" />
-                </IconButton>
-            </div>
+          <div className="flex justify-between items-center text-2xl mb-4">
+            <h1 className="text-white text-4xl lg:text-2xl md:text-xl sm:text-base font-bold">
+              {header}
+            </h1>
+            <IconButton
+              color="deep-orange"
+              size="lg"
+              onClick={() => onListClick(books)}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              <HiOutlineChevronDoubleRight className="text-white" />
+            </IconButton>
+          </div>
           <Swiper
-            modules={[Scrollbar, Mousewheel, Autoplay]}
+            modules={[Scrollbar, Mousewheel]}
             loop={true}
             pagination={{ clickable: true }}
-            centeredSlides={true}
+            // centeredSlides={true}
             grabCursor={true}
             scrollbar={{ draggable: true }}
-            mousewheel={{
-              invert: false,
-            }}
-            // autoplay={{
-            //     delay: 5000,
-            //     stopOnLastSlide: false,
-            //     disableOnInteraction: false,
-            // }}
-
-            // Responsive breakpoints
-            breakpoints={{
-                0: {
-                    spaceBetween: 3,
-                    slidesPerView: 1,
-                },
-                468: {
-                    spaceBetween: 5,
-                    slidesPerView: 1,
-                },
-                768: {
-                    spaceBetween: 15,
-                    slidesPerView: 2,
-                },
-                1024: {
-                    spaceBetween: 15,
-                    slidesPerView: 3,
-                },
-                1280: {
-                    spaceBetween: 30,
-                    slidesPerView: 4,
-                },
-            }}
-            className="breakpoint"
+            mousewheel={{ invert: false }}
+            updateOnWindowResize={false}
+            resizeObserver={true}
+            autoHeight={true}
+            slidesPerView={"auto"}
           >
             {books.map((p, index) => {
               return (
-                <SwiperSlide key={index} >
-                  {/* <BookCard book={p} /> */}
+                // trick lo force width vi .swiper-slide width 100%
+                <SwiperSlide key={index} className="!w-auto">
                   <CardDefault
                     imageUrl={p.cover_image}
                     key={p.id}
@@ -103,10 +94,23 @@ const BookContainer = ({ books, header, onClick, onListClick }: Props) => {
                     ]}
                     ComponentFooter={[
                       <div className="flex justify-between items-center text-2xl mb-4">
-                        <Button color="deep-orange" size="lg" >
-                            Read
+                        <Button
+                          color="deep-orange"
+                          size="lg"
+                          placeholder={undefined}
+                          onPointerEnterCapture={undefined}
+                          onPointerLeaveCapture={undefined}
+                        >
+                          Read
                         </Button>
-                        <IconButton color="gray" size="lg" onClick={() => onClick(p)}>
+                        <IconButton
+                          color="gray"
+                          size="lg"
+                          onClick={() => onClick(p)}
+                          placeholder={undefined}
+                          onPointerEnterCapture={undefined}
+                          onPointerLeaveCapture={undefined}
+                        >
                           <HiOutlineArrowSmRight className="text-white" />
                         </IconButton>
                       </div>,

@@ -4,6 +4,7 @@ import {Category} from "./Category.ts";
 export interface Book {
     id: string,
     title: string;
+    altTitle: string;
     description: string;
     cover_image: string;
     file_path: string;

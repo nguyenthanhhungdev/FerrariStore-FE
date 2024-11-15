@@ -1,15 +1,13 @@
 import { Book } from "../../models/Book.ts";
 import CategoryContainer from "../BookDetail/CategoryContainer.tsx";
-import TitleContainer from "../BookDetail/TitleContainer.tsx";
+import { TitleContainer } from "../BookDetail/TitleContainer.tsx";
 
 interface Props {
   book: Book;
   isMobile: boolean;
 }
 
-const Banner = ({
-  book, isMobile
-}: Props) => {
+const Banner = ({ book, isMobile }: Props) => {
   const handleCategoryClick = (categoryName: string) => {
     console.log(`Category clicked: ${categoryName}`);
   };
@@ -25,25 +23,6 @@ const Banner = ({
             cursor-pointer
              "
       >
-        {/* Background Container */}
-        <div
-          className="absolute top-0 left-0 z-[-2] w-full h-[250px] blur-sm bg-no-repeat  bg-gradient-to-t from-[
-        before:content-['']
-            before:absolute
-            before:inset-0
-            before:block
-            before:bg-gradient-to-r
-            before:from-indigo-50
-            before:to-gray-400
-            before:opacity-75
-            before:z-[-5]
-        "
-          style={{
-            backgroundImage: `url(${book.cover_image})`,
-            backgroundPosition: "top 35% center",
-            backgroundSize: "100%",
-          }}
-        ></div>
         <div className="nav-l grid-in-cover mr-5 mb-5">
           <img
             src={book.cover_image}
@@ -58,14 +37,20 @@ const Banner = ({
 
         {/* category */}
         <div className="grid-in-info sm:mx-2">
-          <CategoryContainer book={book} onCategoryClick={handleCategoryClick} />
+          <CategoryContainer
+            book={book}
+            onCategoryClick={handleCategoryClick}
+          />
         </div>
 
         {/* description */}
-        {!isMobile && <div className="grid-in-stats overflow-hidden transition-[max-height,height]">
-          <p className="story-description py-2 text-xl md:text-lg sm:text-sm">{book.description}</p>
-        </div>}
-
+        {!isMobile && (
+          <div className="grid-in-stats overflow-hidden transition-[max-height,height]">
+            <p className="story-description py-2 text-xl md:text-lg sm:text-sm">
+              {book.description}
+            </p>
+          </div>
+        )}
       </div>
     </>
   );

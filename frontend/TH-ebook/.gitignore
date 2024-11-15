@@ -15,6 +15,10 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+## override-start: them workspace setting de dung chung ca dam cho thong nhat vi ko ai tu biet cai cua minh the nao cho hop ly ca
+!.vscode/settings.json
+!.vscode/launch.json
+## override-end
 .idea
 .DS_Store
 *.suo
@@ -22,3 +26,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+!/.env

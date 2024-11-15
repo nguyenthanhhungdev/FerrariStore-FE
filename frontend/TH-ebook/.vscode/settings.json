@@ -1,0 +1,11 @@
+{
+  "vite.autoStart": false,
+  "vite.browserType": "system",
+  "prettier.tabWidth": 2,
+  // tat typescript mac dinh de xai eslint neu ko se bi hien 2 loi tu 2 extension cung luc ma cai typescipt thi ko setup dc
+  // bat lai vi eslint deo type checking dc
+  "typescript.validate.enable": true,
+  "editor.tabSize": 2,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.typeCheckingMode": "basic"
+}

@@ -20,14 +20,24 @@ interface TabsDefaultProps {
 const TabsDefault = ({ data }: TabsDefaultProps) => {
     return (
         <Tabs value={data[0]?.value || ""}>
-            <TabsHeader>
+            <TabsHeader  placeholder={undefined}
+                         onPointerEnterCapture={undefined}
+                         onPointerLeaveCapture={undefined}
+            >
                 {data.map(({ label, value }) => (
-                    <Tab key={value} value={value}>
+                    <Tab key={value} value={value}
+                         placeholder={undefined}
+                         onPointerEnterCapture={undefined}
+                         onPointerLeaveCapture={undefined}
+                    >
                         {label}
                     </Tab>
                 ))}
             </TabsHeader>
-            <TabsBody>
+            <TabsBody  placeholder={undefined}
+                       onPointerEnterCapture={undefined}
+                       onPointerLeaveCapture={undefined}
+            >
                 {data.map(({ value, content }) => (
                     <TabPanel key={value} value={value}>
                         {content}
