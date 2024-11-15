@@ -24,7 +24,6 @@ const ISignInSchema = yup.object().shape({
     }
 )
 const SignInForm = () => {
-
     const user = useSelector((state: StateType) => state.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -32,12 +31,12 @@ const SignInForm = () => {
     const {
         register,
         handleSubmit,
+        // watch,
         formState: {errors}
     } = useForm({ resolver: yupResolver(ISignInSchema) });
     const onSubmit = (data: { nameoremail: string, password: string }) => {
         dispatch(signIn(data));
     }
-
     const [userLocalStorage, saveUserIDLocalStorage] = useLocalStorage("userid", null);
     const [userAvatarLocalStorage, saveUserAvatarLocalStorage] = useLocalStorage("useravatar", null);
     useEffect(() => {

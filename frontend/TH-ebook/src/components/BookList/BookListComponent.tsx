@@ -1,5 +1,6 @@
 import Typography from "@material-tailwind/react/components/Typography";
 import { Book } from "../../models/Book";
+
 import AuthorTagComponent from "../BookDetail/AuthorTagComponent";
 import RatingsContainer from "../BookDetail/RatingsContainer";
 import classNames from "classnames";

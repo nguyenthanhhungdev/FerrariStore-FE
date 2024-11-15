@@ -144,6 +144,17 @@ const NavBar = ({ isMobile }: NavBarProps) => {
             ) : (
               <SearchBar />
             )}
+            <IconButton
+              className="ml-2"
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              <HiUser
+                className="w-6 h-6 text-white"
+                onClick={() => navigate("/auth/signin")}
+              />
+            </IconButton>
             <div>
               {user.isLogin || userLocalStorage ? (
                 <MenuDefault
