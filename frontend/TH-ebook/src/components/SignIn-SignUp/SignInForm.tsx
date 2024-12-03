@@ -28,6 +28,7 @@ const SignInForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(false);
+    const [message, setMessage] = useState("");
     const {
         register,
         handleSubmit,
@@ -37,15 +38,17 @@ const SignInForm = () => {
     const onSubmit = (data: { nameoremail: string, password: string }) => {
         dispatch(signIn(data));
     }
-    const [userLocalStorage, saveUserIDLocalStorage] = useLocalStorage("userid", null);
     const [userAvatarLocalStorage, saveUserAvatarLocalStorage] = useLocalStorage("useravatar", null);
+    const [isLoginLocalStorage, saveIsLoginLocalStorage] = useLocalStorage("islogin", false);
     useEffect(() => {
         if (user.isLogin) {
-            saveUserIDLocalStorage(user.data?.id);
             saveUserAvatarLocalStorage(user.data?.avatar);
+            saveIsLoginLocalStorage(true);
             navigate('/');
+        } else {
+            setMessage(user.errors);
         }
-    }, [user.isLogin, navigate, saveUserIDLocalStorage, saveUserIDLocalStorage]);
+    });
     return (
         <Card className="w-96"
               placeholder={undefined}
@@ -96,6 +99,11 @@ const SignInForm = () => {
                     </div>
                     {errors.password && <p className="text-red-900">This field is required</p>}
 
+                    {message && (
+                        <p className="text-red-900 text-sm text-center">
+                            {message}
+                        </p>
+                    )}
                 </CardBody>
                 <CardFooter className="pt-0"
                             placeholder={undefined}

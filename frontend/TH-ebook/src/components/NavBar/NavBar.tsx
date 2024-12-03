@@ -28,9 +28,10 @@ const NavBar = ({ isMobile }: NavBarProps) => {
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
   const user = useSelector((state: StateType) => state.user);
-  const userLocalStorage = localStorage.getItem("useravatar");
+  const useravartarLocalStorage = localStorage.getItem("useravatar");
+  const isLoginLocalStorage = localStorage.getItem("islogin");
 
-  console.log("User Local:", userLocalStorage);
+  console.log("User Local:", useravartarLocalStorage);
   console.log("User State:", user);
 
   const handleOnSignIn = () => {
@@ -43,9 +44,9 @@ const NavBar = ({ isMobile }: NavBarProps) => {
   const handleOnLogout = useCallback(() => {
     dispatch(logout());
     localStorage.removeItem("useravatar");
-    localStorage.removeItem("userid");
+    localStorage.removeItem("islogin");
     navigate("/");
-  }, [dispatch]);
+  }, [dispatch, localStorage]);
 
   const menuItems = [
     {
@@ -82,6 +83,8 @@ const NavBar = ({ isMobile }: NavBarProps) => {
     },
   ];
 
+  console.log("Is Login State: ", user.isLogin);
+  console.log("Is Login Local: ", isLoginLocalStorage);
   return (
     <>
       <Navbar
@@ -144,28 +147,18 @@ const NavBar = ({ isMobile }: NavBarProps) => {
             ) : (
               <SearchBar />
             )}
-            <IconButton
-              className="ml-2"
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              <HiUser
-                className="w-6 h-6 text-white"
-                onClick={() => navigate("/auth/signin")}
-              />
-            </IconButton>
+
             <div>
-              {user.isLogin || userLocalStorage ? (
+              {user.isLogin || isLoginLocalStorage === "true" ? (
                 <MenuDefault
                   handlerButton={
                     <img
                       src={
                         user.data?.avatar ||
-                        (userLocalStorage ? JSON.parse(userLocalStorage) : "")
+                        (useravartarLocalStorage ? JSON.parse(useravartarLocalStorage) : "")
                       }
                       alt="User Avatar"
-                      className="w-10 h-10 ml-2 rounded-full object-cover object-center"
+                      className=" user-avatar w-10 h-10 ml-2 rounded-full object-cover object-center "
                     />
                   }
                   menuItems={[
@@ -196,7 +189,7 @@ const NavBar = ({ isMobile }: NavBarProps) => {
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
                     >
-                      <HiUser className="w-6 h-6 text-white" />
+                      <HiUser className="user-icon w-6 h-6 text-white" />
                     </IconButton>
                   }
                   menuItems={menuItems}

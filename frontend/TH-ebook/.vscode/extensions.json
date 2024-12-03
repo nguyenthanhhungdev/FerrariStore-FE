@@ -1,9 +1,9 @@
-{   
-  "recommendations": [ 
+{
+  "recommendations": [
     "esbenp.prettier-vscode",
     "antfu.vite",
     "vitest.explorer",
     "bradlc.vscode-tailwindcss",
-    "dbaeumer.vscode-eslint",
+    "dbaeumer.vscode-eslint"
   ]
 }

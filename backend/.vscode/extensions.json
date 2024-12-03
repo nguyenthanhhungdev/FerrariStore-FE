@@ -1,7 +1,7 @@
 {
-    "recommendations": [
-        "ms-dotnettools.csdevkit",
-        "csharpier.csharpier-vscode",
-        "kreativ-software.csharpextensions"
-    ]
+  "recommendations": [
+    "ms-dotnettools.csdevkit",
+    "csharpier.csharpier-vscode",
+    "kreativ-software.csharpextensions"
+  ]
 }

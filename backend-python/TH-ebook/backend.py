@@ -1,10 +1,12 @@
+import time
 from os.path import exists, join
 from typing import List, Literal, Optional
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from typing import List, Optional, Literal
 from pydantic import BaseModel, TypeAdapter
 
 
@@ -95,13 +97,99 @@ class Book(BaseModel):
     volumes: List[Volume]
     altTitle: Optional[str]
 
+class User(BaseModel):
+    """
+    Model for a user in the JSON.
+
+    Attributes:
+        id (int): The user ID.
+        firstName (str): The first name of the user.
+        lastName (str): The last name of the user.
+        username (str): The username of the user.
+        email (str): The email of the user.
+        password (str): The password of the user.
+        avatar (str): The avatar URL of the user.
+        gender (str): The gender of the user.
+        phone (str): The phone number of the user.
+        birthday (str): The birthday of the user.
+        status (bool): The status of the user.
+        createdAt (int): The creation timestamp of the user.
+        modifiedAt (int): The modification timestamp of the user.
+    """
+
+    id: int
+    firstName: str
+    lastName: str
+    username: str
+    email: str
+    password: str
+    avatar: str
+    gender: str
+    phone: str
+    birthday: str
+    status: bool
+    createdAt: int
+    modifiedAt: int
+
+
+class UserRequest(BaseModel):
+    """
+    Model for a user request in the JSON.
+
+    Attributes:
+        username (str): The username of the user.
+        email (str): The email of the user.
+        password (str): The password of the user.
+    """
+
+    username: str
+    email: str
+    password: str
+    avatar: str
+
 
 app = FastAPI()
-app.add_middleware(CORSMiddleware, allow_origins=["*"])
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust this to your needs
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 # Load JSON data
 with open("./public/books", "r", encoding="utf-8") as file:
     books = TypeAdapter(List[Book]).validate_json(file.read())
+
+with open("./public/users", "r", encoding="utf-8") as file:
+    users = TypeAdapter(List[User]).validate_json(file.read())
+
+@app.get("/api/users")
+def get_all_users(response: Response) -> List[User]:
+    response.headers["Cache-Control"] = "no-store"
+    return users
+
+@app.post("/api/users")
+def create_user(user_request: UserRequest) -> User:
+    print(user_request)
+    user = User(
+        id=max(u.id for u in users) + 1 if users else 1,
+        firstName="",
+        lastName="",
+        username=user_request.username,
+        email=user_request.email,
+        password=user_request.password,
+        avatar=user_request.avatar,
+        gender="",
+        phone="",
+        birthday="",
+        status=True,
+        createdAt=int(time.time()),
+        modifiedAt=int(time.time())
+    )
+    users.append(user)
+    return user
+
 
 
 @app.get("/api/books")

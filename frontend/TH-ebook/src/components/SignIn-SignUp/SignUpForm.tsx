@@ -9,13 +9,14 @@ import {
     Button,
 } from "@material-tailwind/react";
 import {useForm} from "react-hook-form";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {signUp} from "../../features/user/userSlice.ts";
-import {RootState} from "../../store/store.ts";
 import {yupResolver} from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import {useNavigate} from "react-router-dom";
+import {StateType} from "../../store/rootReducer.ts";
+import {useLocalStorage} from "@uidotdev/usehooks";
 
 const ISignUpSchema = yup.object().shape({
         username: yup.string().required(),
@@ -25,6 +26,7 @@ const ISignUpSchema = yup.object().shape({
     }
 )
 const SignUpForm = () => {
+    const user = useSelector((state: StateType) => state.user);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const {
@@ -35,13 +37,20 @@ const SignUpForm = () => {
     } = useForm({resolver: yupResolver(ISignUpSchema)});
     const dispatch = useDispatch();
 
-    const onSubmit = (data: {username: string, password: string, confirmPassword: string, email: string}) => {
+    const onSubmit = (data: {username: string, password: string, email: string}) => {
         dispatch(signUp(data));
-        navigate("/");
     }
 
-    const users = useSelector((state: RootState) => state.user);
-    console.log("All users:", users);
+    const [userAvatarLocalStorage, saveUserAvatarLocalStorage] = useLocalStorage("useravatar", null);
+    const [isLoginLocalStorage, saveIsLoginLocalStorage] = useLocalStorage("islogin", false);
+    useEffect(() => {
+        if (user.isLogin) {
+            saveUserAvatarLocalStorage(user.data?.avatar);
+            saveIsLoginLocalStorage(true);
+            navigate('/');
+        }
+    });
+
     return (
         <Card className="w-96"
               placeholder={undefined} onPointerEnterCapture={undefined}
@@ -97,7 +106,7 @@ const SignUpForm = () => {
                         crossOrigin={undefined}
                         label="Confirm Password"
                         {...register("confirmPassword", {required: true, maxLength: 10})}
-                        type="password"/>
+                        type={showPassword ? "text" : "password"}/>
                     {errors.confirmPassword && <p className="text-red-900">{errors.confirmPassword.message}</p>}
 
                     <Input
