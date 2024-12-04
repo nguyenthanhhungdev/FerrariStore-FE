@@ -234,8 +234,13 @@ def get_book_page(book_id: int, volume_number: int, page_number: int):
 # Serve static files
 app.mount("/api", StaticFiles(directory="./public"), name="public")
 
+
+@app.get("/")
+async def docs_redirect():
+    return RedirectResponse(url='/docs')
+
 # Run the server
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=4001)
+    uvicorn.run(app, host="0.0.0.0")

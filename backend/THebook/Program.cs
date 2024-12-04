@@ -72,8 +72,7 @@ var databaseSettings = builder
 var clientSettings = MongoClientSettings.FromConnectionString(connectionString);
 clientSettings.LoggingSettings = new LoggingSettings(
     LoggerFactory.Create(loggingBuilder =>
-        loggingBuilder.AddConfiguration(builder.Configuration.GetSection("Logging"))
-        .AddConsole()
+        loggingBuilder.AddConfiguration(builder.Configuration.GetSection("Logging")).AddConsole()
     ),
     builder.Configuration.GetSection("MongoDB:LoggingMaxDocumentSize").Get<int>()
 );

@@ -1,7 +1,4 @@
 namespace THebook.Models.Constants
 {
-    public class TagConstant
-    {
-        
-    }
+    public class TagConstant { }
 }

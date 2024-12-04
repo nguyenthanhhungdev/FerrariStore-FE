@@ -21,11 +21,11 @@
   // "features": {},
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [4001],
+  "forwardPorts": [8000],
 
   // Use 'postCreateCommand' to run commands after the container is created.
   // "postCreateCommand": "pip3 install --user -r requirements.txt",
-  "postCreateCommand": "poetry install",
+  "postCreateCommand": "poetry install --no-root --no-interaction --no-ansi && poetry cache clear . --all",
 
   // Configure tool-specific properties.
   // "customizations": {},
