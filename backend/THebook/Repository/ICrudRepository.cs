@@ -1,8 +1,10 @@
+using MongoDB.Driver;
+using MongoDB.Repository;
 using THebook.Models;
 
 namespace THebook.Repository
 {
-    public interface ICrudRepository<T>
+    public interface ICrudRepository<T> : IMongoDbRepository<T>
         where T : BaseDbModel
     {
         Task<IEnumerable<T>> FindAllAsync();
@@ -10,5 +12,6 @@ namespace THebook.Repository
         Task InsertAsync(T entity);
         Task ReplaceAsync(string id, T entity);
         Task DeleteAsync(string id);
+        IMongoCollection<T> GetAggregateCollection();
     }
 }

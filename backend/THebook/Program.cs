@@ -11,6 +11,7 @@ using MongoDB.Infrastructure;
 using MongoDB.Infrastructure.Extensions;
 using MongoDB.UnitOfWork.Abstractions.Extensions;
 using THebook.Common;
+using THebook.Infrastructure;
 using THebook.Models.Queries;
 using THebook.Repository;
 using THebook.Services;
@@ -45,6 +46,9 @@ builder.Services.AddDbContext<MongoDbContextEf>();
 // builder.Services.AddSingleton<MongoDbCollection>();
 builder.Services.AddScoped(typeof(ICrudRepository<>), typeof(CrudRepository<>));
 builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<IFooRepository, FooRepository>();
+builder.Services.AddScoped<IFooBarRepository, FooBarRepository>();
+builder.Services.AddScoped<FooBarService>();
 builder.Services.AddScoped<TagService>(); // Change from AddSingleton to AddScoped
 
 // Thêm dòng này để cấu hình logging
@@ -53,7 +57,7 @@ builder.Services.AddLogging();
 builder
     .Services.AddControllers(options =>
     {
-        options.Filters.Add<GlobalExceptionFilter>();
+        // options.Filters.Add<GlobalExceptionFilter>();
     })
     .AddJsonOptions(options =>
     {

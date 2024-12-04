@@ -1,8 +1,8 @@
-import { Typography } from "@material-tailwind/react";
+import { Alert, Typography } from "@material-tailwind/react";
 import { useState } from "react";
+import { LuConstruction } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import { Book } from "../../models/Book.ts";
-
 import AuthorTagComponent from "./AuthorTagComponent.tsx";
 import ButtonGroupContainer from "./ButtonGroupContainer.tsx";
 import CategoryContainer from "./CategoryContainer.tsx";
@@ -48,8 +48,8 @@ const BookDetail = ({ book, isMobile }: BookDetailProps) => {
   const authors = book.authors.map((author) => author.name);
   const tabData = [
     {
-      label: "Part",
-      value: "Part",
+      label: "Volumes",
+      value: "volume",
       content: (
         <div className="flex gap-6 items-start">
           {/* Author */}
@@ -63,9 +63,15 @@ const BookDetail = ({ book, isMobile }: BookDetailProps) => {
       ),
     },
     {
-      label: "Comment",
+      label: "Comments (0)",
       value: "comment",
-      content: `Chúng tôi hiện đang tiếp tục xây dựng tính năng này. Các bạn có thể ủng hộ chúng tôi phát triển tính năng bằng cách đăng ký gói.`,
+      content: (
+        <Alert icon={<LuConstruction />}>
+          <b>Note: </b>Chúng tôi hiện đang tiếp tục xây dựng tính năng này. Các
+          bạn có thể ủng hộ chúng tôi phát triển tính năng bằng cách đăng ký
+          gói.
+        </Alert>
+      ),
     },
   ];
   const [rangeMode, setRangeMode] = useState<boolean>(true);
@@ -157,7 +163,7 @@ nội dung bị tràn
 
         */}
 
-        <div className="content grid-in-content overflow-x-auto fill-width mt-2 mb-4">
+        <div className="content grid-in-content mt-2 mb-4">
           <TabDefault data={tabData} />
         </div>
       </div>

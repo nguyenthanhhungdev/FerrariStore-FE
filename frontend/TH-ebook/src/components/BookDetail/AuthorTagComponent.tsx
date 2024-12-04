@@ -10,7 +10,7 @@ const AuthorTagComponent = ({ header, content, onContainerClick }: Props) => {
   return (
     <div className="flex-col flex-wrap gap-x-4 gap-y-2">
       {header && <h3 className="text-lg font-bold text-white mb-2">{header}:</h3>}
-      <div className="w-80">
+      <div className="">
           {content.map((item) => (
         <Chip
           className="inline-flex break-words"

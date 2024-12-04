@@ -12,6 +12,7 @@ public partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRepository<T
 {
     protected readonly IMongoCollection<T> _collection;
     protected readonly ILogger<CrudRepository<T>> _logger;
+    protected readonly IOptions<MongoDbSettings> _settings;
 
     public CrudRepository(
         ThEbookContext context,
@@ -24,6 +25,7 @@ public partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRepository<T
             mongoDbSettings.Value.CollectionNames[typeof(T).Name]
         );
         _logger = logger;
+        _settings = mongoDbSettings;
     }
 
     public async Task<IEnumerable<T>> FindAllAsync()
@@ -53,6 +55,11 @@ public partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRepository<T
     public async Task DeleteAsync(string id)
     {
         await _collection.DeleteOneAsync(document => document.Id == id);
+    }
+
+    public IMongoCollection<T> GetAggregateCollection()
+    {
+        return _collection;
     }
 
     [LoggerMessage(Level = LogLevel.Debug, Message = "Find fluent generated {findFluent}.")]

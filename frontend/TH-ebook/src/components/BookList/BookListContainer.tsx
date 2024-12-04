@@ -9,7 +9,7 @@ interface Props {
   errors: string;
 }
 
-const BookListContainer = ({ books, onClick, isLoading, errors }: Props) => {
+const BookListContainer = ({ books, isLoading, errors }: Props) => {
   if (isLoading) {
     return <LoadingSpinner isLoading={isLoading} />;
   }
@@ -17,7 +17,7 @@ const BookListContainer = ({ books, onClick, isLoading, errors }: Props) => {
     return <div className="text-2xl text-red-900">Error loading data</div>;
   }
 
-  return books.map((book) => <BookListComponent book={book} />);
+  return books.map((book) => <BookListComponent key={book.id} book={book} />);
 };
 
 export default BookListContainer;

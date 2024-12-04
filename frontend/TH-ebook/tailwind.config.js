@@ -42,6 +42,16 @@ const config = {
           "cover tags tags",
           "cover description description",
         ],
+        "volume-item": [
+          "cover volume volume preview",
+          "cover desc desc buy",
+          "cover desc desc subscribe",
+          "cover desc desc premium",
+          "streaming desc desc blank",
+          "desc desc desc desc blank",
+          "blank digital expires blank",
+          "part part part part",
+        ],
       },
       // screens: {
       //   xxlg: { max: "1920px" },

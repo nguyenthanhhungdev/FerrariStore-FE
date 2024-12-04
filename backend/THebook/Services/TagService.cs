@@ -1,17 +1,17 @@
+using MongoDB.UnitOfWork;
 using THebook.Models.Entities;
 using THebook.Models.Queries;
 using THebook.Repository;
 
 namespace THebook.Services
 {
-    public class TagService
+    public class TagService(
+        ITagRepository tagRepository,
+        IMongoDbUnitOfWork<ThEbookContext> unitOfWork
+    )
     {
-        private readonly ITagRepository _tagRepository;
-
-        public TagService(ITagRepository tagRepository)
-        {
-            _tagRepository = tagRepository;
-        }
+        private readonly ITagRepository _tagRepository = tagRepository;
+        private readonly IMongoDbUnitOfWork<ThEbookContext> _unitOfWork = unitOfWork;
 
         public async Task<IEnumerable<TagEntity>> GetTagsAsync(TagCriteria criteria)
         {
