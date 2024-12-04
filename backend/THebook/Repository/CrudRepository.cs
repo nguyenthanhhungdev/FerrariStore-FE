@@ -7,12 +7,19 @@ using THebook.Models;
 
 namespace THebook.Repository;
 
-public partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRepository<T>
+// Unhandled exception. System.ArgumentException: Implementation constraint has not been satisfied.
+//    at MongoDB.Repository.Extensions.MongoDbRepositoryServiceCollectionExtensions.AddCustomMongoDbRepository[TService,TImplementation](IServiceCollection services, Func`2 implementationFactory, ServiceLifetime serviceLifetime)
+//    at Program.<Main>$(String[] args) in /workspaces/backend/THebook/Program.cs:line 118
+
+public abstract partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRepository<T>
     where T : BaseDbModel
 {
+    // dung collection binh thuong cho nhung tac vu READ
     protected readonly IMongoCollection<T> _collection;
     protected readonly ILogger<CrudRepository<T>> _logger;
     protected readonly IOptions<MongoDbSettings> _settings;
+
+    protected readonly IMongoDbRepositoryOptions<T>? _options;
 
     public CrudRepository(
         ThEbookContext context,
@@ -28,8 +35,23 @@ public partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRepository<T
         _settings = mongoDbSettings;
     }
 
+    public CrudRepository(
+        ThEbookContext context,
+        IMongoDbRepositoryOptions<T> options,
+        IOptions<MongoDbSettings> mongoDbSettings,
+        ILogger<CrudRepository<T>> logger
+    )
+        : base(context, options)
+    {
+        _collection = Context.GetCollection<T>(options.CollectionName);
+        _logger = logger;
+        _options = options;
+        _settings = mongoDbSettings;
+    }
+
     public async Task<IEnumerable<T>> FindAllAsync()
     {
+        // tac vu READ, nen co the dung collecton rieng
         var f = _collection.Find(new BsonDocument());
         LogFinder(_logger, f);
         return await f.ToListAsync();
@@ -37,6 +59,7 @@ public partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRepository<T
 
     public async Task<T?> FindByIdAsync(string id)
     {
+        // tac vu READ, nen co the dung collecton rieng
         var f = _collection.Find(document => document.Id == id);
         LogFinder(_logger, f);
         return await f.FirstOrDefaultAsync();
@@ -44,19 +67,26 @@ public partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRepository<T
 
     public async Task InsertAsync(T entity)
     {
-        await _collection.InsertOneAsync(entity);
+        // tac vu WRITE, nen dung method cua MongoDbRepository de co ket noi uow
+        // await _collection.InsertOneAsync(entity);
+        await InsertOneAsync(entity);
     }
 
     public async Task ReplaceAsync(string id, T entity)
     {
-        await _collection.ReplaceOneAsync(document => document.Id == id, entity);
+        // tac vu WRITE, nen dung method cua MongoDbRepository de co ket noi uow
+        // await _collection.ReplaceOneAsync(document => document.Id == id, entity);
+        await ReplaceOneAsync(document => document.Id == id, entity);
     }
 
     public async Task DeleteAsync(string id)
     {
-        await _collection.DeleteOneAsync(document => document.Id == id);
+        // tac vu WRITE, nen dung method cua MongoDbRepository de co ket noi uow
+        // await _collection.DeleteOneAsync(document => document.Id == id);
+        await DeleteOneAsync(document => document.Id == id);
     }
 
+    // lay collection dung cho aggeration (vi la collection rieng nen k anh huong uow)
     public IMongoCollection<T> GetAggregateCollection()
     {
         return _collection;

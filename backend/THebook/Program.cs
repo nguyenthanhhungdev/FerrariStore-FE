@@ -9,12 +9,15 @@ using MongoDB.Driver;
 using MongoDB.Driver.Core.Configuration;
 using MongoDB.Infrastructure;
 using MongoDB.Infrastructure.Extensions;
+using MongoDB.Repository;
 using MongoDB.UnitOfWork.Abstractions.Extensions;
 using THebook.Common;
-using THebook.Infrastructure;
 using THebook.Models.Queries;
+using THebook.Models.Tests;
 using THebook.Repository;
+using THebook.Repository.Tests;
 using THebook.Services;
+using THebook.Services.Tests;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,8 +27,7 @@ builder.Services.AddHttpLogging(logging =>
     logging.LoggingFields =
         HttpLoggingFields.RequestMethod
         | HttpLoggingFields.RequestPath
-        | HttpLoggingFields.ResponseStatusCode
-        | HttpLoggingFields.Duration;
+        | HttpLoggingFields.ResponseStatusCode;
     logging.CombineLogs = true;
 });
 
@@ -44,11 +46,13 @@ builder.Services.AddSingleton<IMongoDbSettings>(sp =>
 builder.Services.AddDbContext<MongoDbContextEf>();
 
 // builder.Services.AddSingleton<MongoDbCollection>();
-builder.Services.AddScoped(typeof(ICrudRepository<>), typeof(CrudRepository<>));
+// builder.Services.AddScoped(typeof(ICrudRepository<>), typeof(CrudRepository<>));
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IFooRepository, FooRepository>();
 builder.Services.AddScoped<IFooBarRepository, FooBarRepository>();
+builder.Services.AddScoped<IBookTestRepository, BookTestRepository>();
 builder.Services.AddScoped<FooBarService>();
+builder.Services.AddScoped<BookTestService>();
 builder.Services.AddScoped<TagService>(); // Change from AddSingleton to AddScoped
 
 // Thêm dòng này để cấu hình logging
@@ -80,6 +84,9 @@ clientSettings.LoggingSettings = new LoggingSettings(
     ),
     builder.Configuration.GetSection("MongoDB:LoggingMaxDocumentSize").Get<int>()
 );
+var collectionNames = builder
+    .Configuration.GetSection("MongoDB:CollectionNames")
+    ?.Get<IDictionary<string, string>>()!;
 
 // Register the DbContext
 builder.Services.AddMongoDbContext<IMongoDbContext, ThEbookContext>(
@@ -94,6 +101,22 @@ builder.Services.AddMongoDbContext<IMongoDbContext, ThEbookContext>(
 
 // Register the UnitOfWork
 builder.Services.AddMongoDbUnitOfWork<ThEbookContext>();
+
+// https://github.com/ffernandolima/mongo-db-data-access/issues/16
+builder.Services.AddSingleton<IMongoDbRepositoryOptions<BookTest>>(
+    provider => new MongoDbRepositoryOptions<BookTest>
+    {
+        CollectionName = provider
+            .GetRequiredService<IOptions<MongoDbSettings>>()
+            .Value.CollectionNames[nameof(BookTest)],
+    }
+);
+
+// Khong can thiet, ma con bi loi vi ko xai dc Generic repository
+// Unhandled exception. System.ArgumentException: Implementation constraint has not been satisfied.
+//    at MongoDB.Repository.Extensions.MongoDbRepositoryServiceCollectionExtensions.AddCustomMongoDbRepository[TService,TImplementation](IServiceCollection services, Func`2 implementationFactory, ServiceLifetime serviceLifetime)
+//    at Program.<Main>$(String[] args) in /workspaces/backend/THebook/Program.cs:line 118
+// builder.Services.AddCustomMongoDbRepository<IBookTestRepository, BookTestRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

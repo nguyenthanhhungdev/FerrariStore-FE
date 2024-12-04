@@ -17,5 +17,6 @@ public class TagEntity : BaseDbModel
 
     [BsonElement("group")]
     [JsonPropertyName("group")]
-    public TagGroup Group { get; set; }
+    // public TagGroup Group { get; set; }
+    public string? Group { get; set; }
 }
