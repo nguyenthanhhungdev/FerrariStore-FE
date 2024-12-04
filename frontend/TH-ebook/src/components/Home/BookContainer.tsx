@@ -10,25 +10,30 @@ import {
 import CardDefault from "../Card/CardDefault.tsx";
 import { Button, IconButton } from "@material-tailwind/react";
 import LoadingSpinner from "../_Common/LoadingSpinner.tsx";
+import { useSelector } from "react-redux";
+import { StateType } from "../../store/rootReducer.ts";
 
 interface Props {
-  books: Book[];
-  isLoading: boolean;
-  errors: string;
+  // books: Book[];
+  // isLoading: boolean;
+  // errors: string;
   header: string;
   onClick: (book: Book) => void;
   onListClick: (books: Book[]) => void;
 }
 
 const BookContainer = ({
-  books,
+  // books,
   header,
   onClick,
   onListClick,
-  isLoading,
-  errors,
-}: Props) => {
-  if (isLoading) {
+}: // isLoading,
+// errors,
+Props) => {
+  const { data, isLoading, errors } = useSelector(
+    (state: StateType) => state.books
+  );
+  if (isLoading || !data) {
     return <LoadingSpinner isLoading={isLoading} />;
   }
 
@@ -46,7 +51,7 @@ const BookContainer = ({
             <IconButton
               color="deep-orange"
               size="lg"
-              onClick={() => onListClick(books)}
+              onClick={() => onListClick(data)}
               placeholder={undefined}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
@@ -67,7 +72,7 @@ const BookContainer = ({
             autoHeight={true}
             slidesPerView={"auto"}
           >
-            {books.map((p, index) => {
+            {data.map((p, index) => {
               return (
                 // trick lo force width vi .swiper-slide width 100%
                 <SwiperSlide key={index} className="!w-auto">

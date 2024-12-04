@@ -3,7 +3,10 @@ import LayoutComponent from "../components/Share/LayoutComponent";
 import BannerSlider from "../components/Home/BannerSlider";
 import BookContainer from "../components/Home/BookContainer";
 import { Book } from "../models/Book";
-import useBooksRedux from "../hooks/useBooksRedux.ts";
+// import useBooksRedux from "../hooks/useBooksRedux.ts";
+import { useDispatch } from "react-redux";
+import { getBooksAction } from "../features/book/bookSlice.ts";
+import { useEffect } from "react";
 
 interface Props {
   isMobile: boolean;
@@ -24,41 +27,47 @@ const HomePage = ({ isMobile }: Props) => {
     navigate(`/book`, { state: { books } });
   };
 
-  const { books, errors, isLoading } = useBooksRedux();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBooksAction());
+  }, [dispatch]);
+
+  // const { books, errors, isLoading } = useBooksRedux();
 
   return (
     <div className="home-page gap-y-10">
       <LayoutComponent isMobile={isMobile}>
         <BannerSlider
-          books={books}
+          // books={books}
+          books={[]}
           isMobile={isMobile}
           onClick={handleBannerClick}
         />
         <BookContainer
           header="Trending"
-          books={books}
+          // books={books}
           onClick={handleBookClick}
           onListClick={handleBookListClick}
-          errors={errors}
-          isLoading={isLoading}
+          // errors={errors}
+          // isLoading={isLoading}
         />
         <div className="flex-grow hidden sm:block" />
         <BookContainer
           header="New"
-          books={books}
+          // books={books}
           onClick={handleBookClick}
           onListClick={handleBookListClick}
-          errors={errors}
-          isLoading={isLoading}
+          // errors={errors}
+          // isLoading={isLoading}
         />
         <div className="flex-grow hidden sm:block" />
         <BookContainer
           header="Features"
-          books={books}
+          // books={books}
           onClick={handleBookClick}
           onListClick={handleBookListClick}
-          errors={errors}
-          isLoading={isLoading}
+          // errors={errors}
+          // isLoading={isLoading}
         />
       </LayoutComponent>
     </div>
