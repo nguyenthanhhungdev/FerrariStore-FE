@@ -1,4 +1,4 @@
-using BanSach.Model;
+using BanSach.Models;
 using MongoDB.Driver;
 using MongoDB.Repository;
 

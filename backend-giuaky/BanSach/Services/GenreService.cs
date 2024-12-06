@@ -1,11 +1,11 @@
-using BanSach.Model;
+using BanSach.Models;
 using BanSach.Repository;
 using MongoDB.Infrastructure;
 using MongoDB.UnitOfWork;
 
 namespace BanSach.Services
 {
-    public class TagService(IMongoDbUnitOfWork<BanSachContext> unitOfWork)
+    public class GenreService(IMongoDbUnitOfWork<BanSachContext> unitOfWork)
     {
         private readonly IMongoDbUnitOfWork<BanSachContext> Uow = unitOfWork;
         private IGenreRepository Repo
@@ -28,9 +28,9 @@ namespace BanSach.Services
             return await Repo.SearchByNameAsync(name);
         }
 
-        public async Task AddAsync(Genre genre)
+        public async Task<IMongoDbSaveChangesResult> AddAsync(Genre genre)
         {
-            if (await Repo.AnyAsync(genre => genre.Name == genre.Name))
+            if (await Repo.AnyAsync(genre0 => genre0.Name == genre.Name))
             {
                 throw new InvalidOperationException(
                     $"Genre with name '{genre.Name}' already exists"
@@ -38,6 +38,7 @@ namespace BanSach.Services
             }
             genre.Id = null;
             await Repo.InsertOneAsync(genre);
+            return await Uow.SaveChangesAsync();
         }
 
         public async Task<IMongoDbSaveChangesResult> UpdateAsync(string id, Genre genre)

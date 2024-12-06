@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace BanSach.Model
+namespace BanSach.Models
 {
     public class Genre : BaseDbModel
     {
@@ -16,6 +16,6 @@ namespace BanSach.Model
 
         [BsonElement("is_active")]
         [JsonPropertyName("is_active")]
-        public string? IsActive { get; set; } = null!;
+        public bool? IsActive { get; set; } = null!;
     }
 }

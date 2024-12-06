@@ -1,4 +1,4 @@
-using BanSach.Model;
+using BanSach.Models;
 
 namespace BanSach.Repository
 {

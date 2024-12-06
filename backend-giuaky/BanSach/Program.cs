@@ -1,8 +1,9 @@
 using System.Text.Json.Serialization;
 using AutoWrapper;
 using BanSach.Infrastructure;
-using BanSach.Model;
+using BanSach.Models;
 using BanSach.Repository;
+using BanSach.Services;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -37,6 +38,9 @@ builder.Services.AddSingleton<IMongoDbSettings>(sp =>
 );
 
 // Add services to the container.
+
+builder.Services.AddScoped<GenreService>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 
 // Thêm dòng này để cấu hình logging
 builder.Services.AddLogging();
