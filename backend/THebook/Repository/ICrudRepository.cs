@@ -7,11 +7,17 @@ namespace THebook.Repository
     public interface ICrudRepository<T> : IMongoDbRepository<T>
         where T : BaseDbModel
     {
+        // cach dung IMongoCollection
         Task<IEnumerable<T>> FindAllAsync();
         Task<T?> FindByIdAsync(string id);
-        Task InsertAsync(T entity);
-        Task ReplaceAsync(string id, T entity);
-        Task DeleteAsync(string id);
-        IMongoCollection<T> GetAggregateCollection();
+
+        // cach dung IMongoQueryable
+        Task<IEnumerable<T>> SearchAllAsync();
+        Task<T?> SearchByIdAsync(string id);
+
+        Task<object> InsertAsync(T entity);
+        Task<object> ReplaceByIdAsync(string id, T entity);
+        Task<object> DeleteByIdAsync(string id);
+        IMongoCollection<T> AggregateCollection { get; }
     }
 }

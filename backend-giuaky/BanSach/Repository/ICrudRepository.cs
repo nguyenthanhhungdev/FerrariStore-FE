@@ -1,5 +1,5 @@
 using BanSach.Models;
-using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using MongoDB.Repository;
 
 namespace BanSach.Repository
@@ -14,6 +14,7 @@ namespace BanSach.Repository
         // cach dung IMongoQueryable
         Task<IEnumerable<T>> SearchAllAsync();
         Task<T?> SearchByIdAsync(string id);
+        Task<object> InsertAsync(T entity);
 
         Task<object> ReplaceByIdAsync(string id, T entity);
         Task<object> DeleteByIdAsync(string id);

@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using MongoDB.Repository;
 using THebook.Models;
 
@@ -20,6 +20,12 @@ public abstract partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRep
     protected readonly IOptions<MongoDbSettings> _settings;
 
     protected readonly IMongoDbRepositoryOptions<T>? _options;
+    protected IMongoQueryable<T> AsQueryable
+    {
+        get { return Collection.AsQueryable(); }
+    }
+
+    public IMongoCollection<T> AggregateCollection => _collection;
 
     public CrudRepository(
         ThEbookContext context,
@@ -51,39 +57,43 @@ public abstract partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRep
 
     public async Task<IEnumerable<T>> FindAllAsync()
     {
-        // tac vu READ, nen co the dung collecton rieng
-        var f = _collection.Find(new BsonDocument());
-        LogFinder(_logger, f);
-        return await f.ToListAsync();
+        return await Collection.Find(new BsonDocument()).ToListAsync();
     }
 
     public async Task<T?> FindByIdAsync(string id)
     {
-        // tac vu READ, nen co the dung collecton rieng
-        var f = _collection.Find(document => document.Id == id);
-        LogFinder(_logger, f);
-        return await f.FirstOrDefaultAsync();
+        return await Collection.Find(entity => entity.Id == id).SingleOrDefaultAsync();
     }
 
-    public async Task InsertAsync(T entity)
+    public async Task<IEnumerable<T>> SearchAllAsync()
+    {
+        return await AsQueryable.ToListAsync();
+    }
+
+    public async Task<T?> SearchByIdAsync(string id)
+    {
+        return await AsQueryable.Where(entity => entity.Id == id).SingleOrDefaultAsync();
+    }
+
+    public async Task<object> InsertAsync(T entity)
     {
         // tac vu WRITE, nen dung method cua MongoDbRepository de co ket noi uow
         // await _collection.InsertOneAsync(entity);
-        await InsertOneAsync(entity);
+        return await InsertOneAsync(entity);
     }
 
-    public async Task ReplaceAsync(string id, T entity)
+    public async Task<object> ReplaceByIdAsync(string id, T entity)
     {
         // tac vu WRITE, nen dung method cua MongoDbRepository de co ket noi uow
         // await _collection.ReplaceOneAsync(document => document.Id == id, entity);
-        await ReplaceOneAsync(document => document.Id == id, entity);
+        return await ReplaceOneAsync(entity => entity.Id == id, entity);
     }
 
-    public async Task DeleteAsync(string id)
+    public async Task<object> DeleteByIdAsync(string id)
     {
         // tac vu WRITE, nen dung method cua MongoDbRepository de co ket noi uow
         // await _collection.DeleteOneAsync(document => document.Id == id);
-        await DeleteOneAsync(document => document.Id == id);
+        return await DeleteOneAsync(entity => entity.Id == id);
     }
 
     // lay collection dung cho aggeration (vi la collection rieng nen k anh huong uow)
@@ -91,7 +101,4 @@ public abstract partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRep
     {
         return _collection;
     }
-
-    [LoggerMessage(Level = LogLevel.Debug, Message = "Find fluent generated {findFluent}.")]
-    protected static partial void LogFinder(ILogger logger, IFindFluent<T, T> findFluent);
 }

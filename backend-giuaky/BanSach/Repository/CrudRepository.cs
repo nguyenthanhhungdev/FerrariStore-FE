@@ -3,7 +3,6 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using MongoDB.QueryBuilder;
 using MongoDB.Repository;
 
 namespace BanSach.Repository;
@@ -68,6 +67,11 @@ public abstract partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRep
     public async Task<T?> SearchByIdAsync(string id)
     {
         return await AsQueryable.Where(entity => entity.Id == id).SingleOrDefaultAsync();
+    }
+
+    public async Task<object> InsertAsync(T entity)
+    {
+        return await InsertOneAsync(entity);
     }
 
     public async Task<object> ReplaceByIdAsync(string id, T entity)
