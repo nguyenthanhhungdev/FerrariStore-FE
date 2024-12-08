@@ -9,5 +9,9 @@ namespace THebook.Models.Entities
         [BsonElement("name")]
         [JsonPropertyName("name")]
         public string? Name { get; set; } = null!;
+
+        [BsonElement("format")]
+        [JsonPropertyName("format")]
+        public string? Format { get; set; } = null!;
     }
 }
