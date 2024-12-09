@@ -39,14 +39,14 @@ namespace THebook.Services.Tests
         public async Task UpdateAsync(string id, BookTest book)
         {
             // tac vu WRITE, nen co ket noi uow
-            await UowBookRepository.ReplaceAsync(id, book);
+            await UowBookRepository.ReplaceByIdAsync(id, book);
             await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task RemoveAsync(string id)
         {
             // tac vu WRITE, nen co ket noi uow
-            await _bookRepository.DeleteAsync(id);
+            await _bookRepository.DeleteByIdAsync(id);
             await _unitOfWork.SaveChangesAsync();
         }
     }

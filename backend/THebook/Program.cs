@@ -2,6 +2,8 @@ using System.Text.Json.Serialization;
 using AutoWrapper;
 using FluentValidation;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Conventions;
@@ -11,7 +13,9 @@ using MongoDB.Infrastructure;
 using MongoDB.Infrastructure.Extensions;
 using MongoDB.Repository;
 using MongoDB.UnitOfWork.Abstractions.Extensions;
-using THebook.Common;
+using SharpGrip.FluentValidation.AutoValidation.Mvc.Enums;
+using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
+using THebook.Infrastructure;
 using THebook.Models.Queries;
 using THebook.Models.Tests;
 using THebook.Repository;
@@ -43,17 +47,18 @@ builder.Services.AddSingleton<IMongoDbSettings>(sp =>
 
 // Add services to the container.
 
-builder.Services.AddDbContext<MongoDbContextEf>();
+// h chua xai, TODO: xem lai xem co xai dc k
+// builder.Services.AddDbContext<MongoDbContextEf>();
 
 // builder.Services.AddSingleton<MongoDbCollection>();
 // builder.Services.AddScoped(typeof(ICrudRepository<>), typeof(CrudRepository<>));
-builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IFooRepository, FooRepository>();
 builder.Services.AddScoped<IFooBarRepository, FooBarRepository>();
 builder.Services.AddScoped<IBookTestRepository, BookTestRepository>();
 builder.Services.AddScoped<FooBarService>();
 builder.Services.AddScoped<BookTestService>();
-builder.Services.AddScoped<TagService>(); // Change from AddSingleton to AddScoped
+builder.Services.AddScoped<CategoryService>(); // Change from AddSingleton to AddScoped
 
 // Thêm dòng này để cấu hình logging
 builder.Services.AddLogging();
@@ -68,9 +73,39 @@ builder
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
+builder.Services.AddFluentValidationAutoValidation(configuration =>
+{
+    // Disable the built-in .NET model (data annotations) validation.
+    configuration.DisableBuiltInModelValidation = false;
+    // Only validate controllers decorated with the `FluentValidationAutoValidation` attribute.
+    configuration.ValidationStrategy = ValidationStrategy.Annotations;
+    // Enable validation for parameters bound from `BindingSource.Body` binding sources.
+    configuration.EnableBodyBindingSourceAutomaticValidation = true;
+    // Enable validation for parameters bound from `BindingSource.Form` binding sources.
+    configuration.EnableFormBindingSourceAutomaticValidation = true;
+    // Enable validation for parameters bound from `BindingSource.Query` binding sources.
+    configuration.EnableQueryBindingSourceAutomaticValidation = true;
+    // Enable validation for parameters bound from `BindingSource.Path` binding sources.
+    configuration.EnablePathBindingSourceAutomaticValidation = false;
+    // Enable validation for parameters bound from 'BindingSource.Custom' binding sources.
+    configuration.EnableCustomBindingSourceAutomaticValidation = false;
+    // Replace the default result factory with a custom implementation.
+    // configuration.OverrideDefaultResultFactoryWith<CustomResultFactory>();
+});
+
+// To disable the automatic model state validation returning 400
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 // FluentValidation can be used within ASP.NET Core web applications to validate incoming models
-builder.Services.AddScoped<IValidator<QueryObjectId>, QueryObjectIdValidator>();
-builder.Services.AddScoped<IValidator<TagCriteria>, TagCriteriaValidator>();
+builder.Services.AddTransient<IValidator<string>, ObjectIdValidator>();
+builder.Services.AddTransient<
+    IValidator<CategoryRequestCriteria>,
+    QueryCategoryCriteriaValidator
+>();
+builder.Services.AddTransient<IValidator<CategoryRequest>, CategoryRequestObjectValidator>();
 
 var databaseName = builder.Configuration.GetSection("MongoDB:DatabaseName")?.Get<string>();
 var connectionString = builder.Configuration.GetSection("MongoDB:ConnectionString")?.Get<string>();

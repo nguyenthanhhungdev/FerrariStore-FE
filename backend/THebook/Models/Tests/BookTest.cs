@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace THebook.Models.Tests
 {
-    public class BookTest: BaseDbModel
+    public class BookTest : BaseDbModel
     {
         [BsonElement("name")]
         [JsonPropertyName("name")]

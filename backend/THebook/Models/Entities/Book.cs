@@ -2,9 +2,9 @@ using System.Text.Json.Serialization;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace THebook.Models
+namespace THebook.Models.Entities
 {
-    public class BookDb : BaseDbModel
+    public class Book : BaseDbModel
     {
         [BsonElement("title")]
         [JsonPropertyName("title")]
@@ -18,17 +18,13 @@ namespace THebook.Models
         [JsonPropertyName("cover_image")]
         public string? CoverImage { get; set; } = null!;
 
-        [BsonElement("file_path")]
-        [JsonPropertyName("file_path")]
-        public string? FilePath { get; set; } = null!;
-
         [BsonElement("published_year")]
         [JsonPropertyName("published_year")]
         public int? PublishedYear { get; set; } = null!;
 
-        [BsonElement("language")]
-        [JsonPropertyName("language")]
-        public string? Language { get; set; } = null!;
+        [BsonElement("original_language")]
+        [JsonPropertyName("original_language")]
+        public string? OriginalLanguage { get; set; } = null!;
 
         [BsonElement("created_at")]
         [JsonPropertyName("created_at")]

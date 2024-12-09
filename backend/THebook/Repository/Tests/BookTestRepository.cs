@@ -6,7 +6,7 @@ using THebook.Models.Tests;
 
 namespace THebook.Repository.Tests;
 
-public partial class BookTestRepository(
+public class BookTestRepository(
     IMongoDbRepositoryOptions<BookTest> options,
     ThEbookContext context,
     IOptions<MongoDbSettings> mongoDbSettings,
@@ -15,6 +15,6 @@ public partial class BookTestRepository(
 {
     public async Task<IEnumerable<string?>> GetBooksName()
     {
-        return await _collection.AsQueryable().Select(book => book.Name).ToListAsync();
+        return await AsQueryable.Select(book => book.Name).ToListAsync();
     }
 }

@@ -15,15 +15,12 @@ public abstract partial class CrudRepository<T> : MongoDbRepository<T>, ICrudRep
     where T : BaseDbModel
 {
     // dung collection binh thuong cho nhung tac vu READ
-    protected readonly IMongoCollection<T> _collection;
+    private readonly IMongoCollection<T> _collection;
     protected readonly ILogger<CrudRepository<T>> _logger;
     protected readonly IOptions<MongoDbSettings> _settings;
 
     protected readonly IMongoDbRepositoryOptions<T>? _options;
-    protected IMongoQueryable<T> AsQueryable
-    {
-        get { return Collection.AsQueryable(); }
-    }
+    protected IMongoQueryable<T> AsQueryable => Collection.AsQueryable();
 
     public IMongoCollection<T> AggregateCollection => _collection;
 

@@ -27,10 +27,10 @@ public partial class FooBarRepository(
     {
         // MongoDB.Driver.Linq.ExpressionNotSupportedException: Expression not supported: asField.Children.
         var collectionName = _settings.Value.CollectionNames[nameof(BarDb)];
-        return _collection
+        return Collection
             .Aggregate()
             .Lookup<BarDb, Foo, Bar>(
-                _fooRepository.GetAggregateCollection(),
+                _fooRepository.AggregateCollection,
                 localField => localField.FooId,
                 foreignField => foreignField.Id,
                 @as => @as.Foo

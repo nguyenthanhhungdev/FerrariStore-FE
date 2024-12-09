@@ -1,6 +1,6 @@
 using AutoWrapper;
 
-namespace THebook.Common
+namespace THebook.Infrastructure
 {
     public class ApiResponseAutoWrapperMapObject
     {
