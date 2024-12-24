@@ -1,9 +1,0 @@
-{
-  "recommendations": [
-    "alexr00.formatallfilesinworkspace",
-    "ms-azuretools.vscode-docker",
-    "ms-vscode-remote.remote-containers",
-    "codezombiech.gitignore",
-    "esbenp.prettier-vscode"
-  ]
-}
